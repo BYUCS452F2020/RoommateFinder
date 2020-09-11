@@ -1,4 +1,4 @@
-Parker Wilson (Responder/Supporter):
+Parker Wilson (Responder/Supporter of RoommateFinder):
 
 I am very much interested in working on this project because it can help solve a very common problem for college students. Trying to find compatible roommates
 can be very tricky, so I think there is a lot of potential for this project if we can make a successful app with a working database.
