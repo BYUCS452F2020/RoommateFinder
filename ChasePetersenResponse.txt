@@ -1,0 +1,13 @@
+Chase Petersen
+
+I am primarily interested in this project primarily because it is a real problem I have seen.  I think it is an inovative solution to a problem that would be fun to work with.
+
+----- Business -------
+I think this project could be solution to a problem for which there would likely be good demand for.  It has potential to fill a need that is not being filled which is a good opportunity.
+
+----- Legal  ----- 
+I imagine there is a lot of interesting legal questions if this project were to be a public application.  I think data privacy might be important when considering what information about users is available to the public.
+
+---- Technical ----
+I think this app gives a lot of opportunities to employ different technologies.  If we are planning on building a backend in AWS, I can offer my experience using that technology.
+
