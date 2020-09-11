@@ -5,5 +5,3 @@ Since you've been in College, how many times have you moved? If you live anywher
 
 Probable NoSql: Graph NoSQL Size of Team: 2 Business: Legal:
 Technical:
-
-Parker Wilson (Responser/Supporter)
