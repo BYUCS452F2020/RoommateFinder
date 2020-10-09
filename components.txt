@@ -1,0 +1,13 @@
+list the servers/machines used: It will be an Android application so a cell phone will suffice, no server is needed because we are using AWS
+which relational database software are you using: Amazon Relational Database Service (RDS) https://www.baeldung.com/aws-aurora-rds-java
+what implementation languages are using for each part, for example
+database server, SQL
+client machine, Java
+what is the nature of the connections between the pieces (bandwidth, latency, protocol, etc.) It's nothing too crazy. The android phone will communicate with AWS services and then receive data from aws. Other minor details such as scaling is taking care of with AWS
+Describe your personal contribution to each of the components, and your assessment of the project at this point: 
+Assignments:
+	1. Make a Simple Design for the Frontend (Using Figma): Wireframes/Blueprint - Parker Wilson by end of Tuesday the 13th
+	2. Design Workflow between the Application and AWS - Travis Graham by the End of Tuesday the 13th
+	3. Setup Application (Getting the Frontend Working) - Brandon Scott by the End of Saturday the 17th
+	4. Integrate an AWS account with the Application - Travis Graham by our meeting Friday the 23rd
+	5. SQL Statements - Come prepared with rough sketches, All of us during our meeting Friday the 23rd
