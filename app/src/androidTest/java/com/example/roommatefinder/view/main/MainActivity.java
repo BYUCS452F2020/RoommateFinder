@@ -1,4 +1,4 @@
-package com.example.roommatefinder.view;
+package com.example.roommatefinder.view.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.roommatefinder.R;
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.User;
+import com.example.roommatefinder.view.main.SectionsPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;

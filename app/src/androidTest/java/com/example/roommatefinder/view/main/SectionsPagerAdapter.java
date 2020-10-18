@@ -1,4 +1,4 @@
-package com.example.roommatefinder.view;
+package com.example.roommatefinder.view.main;
 
 import android.content.Context;
 

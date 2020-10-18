@@ -14,5 +14,7 @@
     <string name="filterPosts">Filter</string>
     <string name="postFeed">Feed</string>
     <string name="userPosts">My Posts</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

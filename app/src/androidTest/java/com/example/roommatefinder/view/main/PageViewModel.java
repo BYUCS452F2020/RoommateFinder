@@ -1,4 +1,4 @@
-package com.example.roommatefinder.view;
+package com.example.roommatefinder.view.main;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

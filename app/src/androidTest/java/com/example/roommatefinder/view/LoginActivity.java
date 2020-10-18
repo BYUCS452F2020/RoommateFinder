@@ -12,11 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.roommatefinder.R;
-import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
 import com.example.roommatefinder.presenter.LoginPresenter;
 import com.example.roommatefinder.view.asynctask.LoginTask;
+import com.example.roommatefinder.view.main.MainActivity;
 
 /**
  * Contains the minimum UI required to allow the user to login with a hard-coded user. Most or all
