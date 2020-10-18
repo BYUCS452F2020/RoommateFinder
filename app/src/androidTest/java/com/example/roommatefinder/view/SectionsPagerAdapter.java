@@ -19,13 +19,13 @@ import com.example.roommatefinder.model.User;
  */
 class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int FEED_FRAGMENT_POSITION = 0;
+    private static final int POST_FRAGMENT_POSITION = 0;
     private static final int STORY_FRAGMENT_POSITION = 1;
     private static final int FOLLOWING_FRAGMENT_POSITION = 2;
     private static final int FOLLOWER_FRAGMENT_POSITION = 3;
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.feedTabTitle, R.string.storyTabTitle, R.string.followingTabTitle, R.string.followersTabTitle};
+    private static final int[] TAB_TITLES = new int[]{R.string.postFeed, R.string.userPosts};
     private final Context mContext;
     private final User user;
     private final AuthToken authToken;
@@ -39,19 +39,11 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == FOLLOWING_FRAGMENT_POSITION) {
-            return FollowingFragment.newInstance(user, authToken);
+
+        if(position == 0){
+            return PlaceholderFragment.newInstance(position + 1);
         }
-        else if(position == FOLLOWER_FRAGMENT_POSITION){
-            return FollowerFragment.newInstance(user, authToken);
-        }
-        else if(position == STORY_FRAGMENT_POSITION){
-            return StoryFragment.newInstance(user, authToken);
-        }
-        else if(position == FEED_FRAGMENT_POSITION){
-            return FeedFragment.newInstance(user, authToken);
-        }
-        else {
+        else{
             return PlaceholderFragment.newInstance(position + 1);
         }
     }
