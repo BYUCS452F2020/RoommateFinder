@@ -20,9 +20,7 @@ import com.example.roommatefinder.model.User;
 class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private static final int POST_FRAGMENT_POSITION = 0;
-    private static final int STORY_FRAGMENT_POSITION = 1;
-    private static final int FOLLOWING_FRAGMENT_POSITION = 2;
-    private static final int FOLLOWER_FRAGMENT_POSITION = 3;
+    private static final int MY_POST_POSITION = 1;
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.postFeed, R.string.userPosts};
@@ -40,12 +38,7 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if(position == 0){
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-        else{
-            return PlaceholderFragment.newInstance(position + 1);
-        }
+        return PlaceholderFragment.newInstance(position + 1);
     }
 
     @Nullable
@@ -56,7 +49,7 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 4 total pages.
-        return 4;
+        // Show 2 total pages.
+        return 2;
     }
 }

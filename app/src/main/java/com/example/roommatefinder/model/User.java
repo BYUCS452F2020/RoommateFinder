@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model;
 
-public class User implements Comparable<User> {
+public class User {
 
     private String firstName;
     private String lastName;
@@ -48,8 +48,4 @@ public class User implements Comparable<User> {
         return phoneNumber;
     }
 
-    @Override
-    public int compareTo(User o) {
-        return 0;
-    }
 }

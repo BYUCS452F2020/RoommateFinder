@@ -18,10 +18,6 @@ import com.example.roommatefinder.presenter.LoginPresenter;
 import com.example.roommatefinder.view.asynctask.LoginTask;
 import com.example.roommatefinder.view.main.MainActivity;
 
-/**
- * Contains the minimum UI required to allow the user to login with a hard-coded user. Most or all
- * of this should be replaced when the back-end is implemented.
- */
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, LoginTask.Observer {
 
     private static final String LOG_TAG = "LoginActivity";
@@ -40,12 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         TextView registerLink = findViewById(R.id.link_register);
         loginButton.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * Makes a login request. The user is hard-coded, so it doesn't matter what data we put
-             * in the LoginRequest object.
-             *
-             * @param view the view object that was clicked.
-             */
+
             @Override
             public void onClick(View view) {
                 loginInToast = Toast.makeText(LoginActivity.this, "Logging In", Toast.LENGTH_LONG);
