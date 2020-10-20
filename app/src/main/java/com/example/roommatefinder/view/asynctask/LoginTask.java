@@ -1,7 +1,6 @@
 package com.example.roommatefinder.view.asynctask;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
