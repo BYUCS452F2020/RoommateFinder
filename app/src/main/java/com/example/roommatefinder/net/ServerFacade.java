@@ -1,24 +1,22 @@
 package com.example.roommatefinder.net;
 
-import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
-import com.example.roommatefinder.model.service.response.LoginResponse;
-import com.example.roommatefinder.model.service.response.RegisterResponse;
+import com.example.roommatefinder.net.asynctasks.LoginTaskFacade;
+import com.example.roommatefinder.net.asynctasks.RegisterTaskFacade;
 
 public class ServerFacade {
 
-    public LoginResponse login(LoginRequest request) {
-        User user = new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333");
-        return new LoginResponse(user, new AuthToken());
+    public void login(LoginRequest request, LoginTaskFacade.Observer observer) {
+//        User user = new User("Test", "User", 'm', 25, "testuser@gmail.com",
+//                "password", "111-222-3333");
+        LoginTaskFacade loginTask = new LoginTaskFacade(observer);
+        loginTask.execute(request);
     }
 
-    public RegisterResponse register(RegisterRequest request){
-        User user = new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge(),
-                request.getEmail(), request.getPassword(), request.getPhoneNumber());
-
-        return new RegisterResponse(user, new AuthToken());
+    public void register(RegisterRequest request, RegisterTaskFacade.Observer observer){
+        RegisterTaskFacade registerTask = new RegisterTaskFacade(observer);
+        registerTask.execute(request);
     }
 }

@@ -32,12 +32,8 @@ public class RegisterTask extends AsyncTask<RegisterRequest, Void, RegisterRespo
     protected RegisterResponse doInBackground(RegisterRequest... registerRequests) {
         RegisterResponse registerResponse = null;
 
-        try{
-            registerResponse = presenter.register(registerRequests[0]);
-
-        } catch (IOException e){
-            exception = e;
-        }
+        //
+        // registerResponse = presenter.register(registerRequests[0]);
 
         return registerResponse;
     }

@@ -1,7 +1,6 @@
 package com.example.roommatefinder.model;
 
 public class User {
-
     private String firstName;
     private String lastName;
     private Character gender;

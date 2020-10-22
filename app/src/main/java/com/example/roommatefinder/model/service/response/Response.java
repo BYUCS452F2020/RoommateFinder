@@ -2,8 +2,8 @@ package com.example.roommatefinder.model.service.response;
 
 class Response {
 
-    private final boolean success;
-    private final String message;
+    private boolean success;
+    private String message;
 
 
     Response(boolean success) {

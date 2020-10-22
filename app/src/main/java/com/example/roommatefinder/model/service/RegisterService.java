@@ -4,21 +4,19 @@ import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.net.ServerFacade;
+import com.example.roommatefinder.net.asynctasks.RegisterTaskFacade;
 
 import java.io.IOException;
 
 public class RegisterService {
 
-    public RegisterResponse register(RegisterRequest request) throws IOException {
+    public void register(RegisterRequest request, RegisterTaskFacade.Observer observer) throws IOException {
         ServerFacade serverFacade = getServerFacade();
-        RegisterResponse registerResponse = serverFacade.register(request);
-
-
-        return registerResponse;
+        serverFacade.register(request, observer);
     }
 
 
-    ServerFacade getServerFacade() {
+    private ServerFacade getServerFacade() {
         return new ServerFacade();
     }
 }
