@@ -50,12 +50,7 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse> {
     protected LoginResponse doInBackground(LoginRequest... loginRequests) {
         LoginResponse loginResponse = null;
 
-        try {
-            loginResponse = presenter.login(loginRequests[0]);
-
-        } catch (IOException ex) {
-            exception = ex;
-        }
+        // loginResponse = presenter.login(loginRequests[0]);
 
         return loginResponse;
     }

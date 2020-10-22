@@ -18,6 +18,8 @@ import com.example.roommatefinder.presenter.LoginPresenter;
 import com.example.roommatefinder.view.asynctask.LoginTask;
 import com.example.roommatefinder.view.main.MainActivity;
 
+import java.io.IOException;
+
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, LoginTask.Observer {
 
     private static final String LOG_TAG = "LoginActivity";
@@ -47,8 +49,13 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
                 // It doesn't matter what values we put here. We will be logged in with a hard-coded dummy user.
                 LoginRequest loginRequest = new LoginRequest(loginAlias.getText().toString(), loginPass.getText().toString());
-                LoginTask loginTask = new LoginTask(presenter, LoginActivity.this);
-                loginTask.execute(loginRequest);
+                try {
+                    presenter.login(loginRequest);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                LoginTask loginTask = new LoginTask(presenter, LoginActivity.this);
+//                loginTask.execute(loginRequest);
             }
         });
 
@@ -85,5 +92,10 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void handleException(Exception exception) {
         Log.e(LOG_TAG, exception.getMessage(), exception);
         Toast.makeText(this, "Failed to login because of exception: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onLoginResult(LoginResponse response) {
+        //handle Login Result
     }
 }

@@ -7,6 +7,10 @@ public class AuthToken {
         this.authToken = authToken;
     }
 
+    public AuthToken() {
+
+    }
+
     public String getAuthToken() {
         return authToken;
     }

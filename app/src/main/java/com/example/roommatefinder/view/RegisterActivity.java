@@ -19,6 +19,8 @@ import com.example.roommatefinder.presenter.RegisterPresenter;
 import com.example.roommatefinder.view.asynctask.RegisterTask;
 import com.example.roommatefinder.view.main.MainActivity;
 
+import java.io.IOException;
+
 public class RegisterActivity extends AppCompatActivity implements RegisterPresenter.View, RegisterTask.Observer {
 
     private static final String LOG_TAG = "RegisterActivity";
@@ -53,8 +55,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
                 RegisterRequest registerRequest = new RegisterRequest(firstName.getText().toString(), lastName.getText().toString(),
                         gender.getText().charAt(0), Integer.parseInt(age.getText().toString()), email.getText().toString(), password.getText().toString(),
                         phoneNumber.getText().toString());
-                RegisterTask registerTask = new RegisterTask(presenter, RegisterActivity.this);
-                registerTask.execute(registerRequest);
+                try {
+                    presenter.register(registerRequest);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                RegisterTask registerTask = new RegisterTask(presenter, RegisterActivity.this);
+//                registerTask.execute(registerRequest);
             }
         });
 
@@ -87,5 +94,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
     public void handleException(Exception ex) {
         Log.e(LOG_TAG, ex.getMessage(), ex);
         Toast.makeText(this, "Failed to login because of exception: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRegisterResult(RegisterResponse registerResponse) {
+        //handle response
     }
 }
