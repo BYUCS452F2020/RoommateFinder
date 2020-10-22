@@ -18,17 +18,18 @@ public class AuthTokenTable implements DAOInterface<LoginRequest, LoginResponse,
     @Override
     public LoginResponse Update(LoginRequest request) {
         //Probably won't use this
-        return null;
+        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
+                "password", "111-222-3333"), new AuthToken("Trump sucks"));
     }
 
     @Override
     public LogoutResponse Delete(LogoutRequest request) {
         //Use this when they Logout
-        return null;
+        return new LogoutResponse(true);
     }
 
     @Override
     public LogoutResponse Query(LogoutRequest request) {
-        return null;
+        return new LogoutResponse(true);
     }
 }

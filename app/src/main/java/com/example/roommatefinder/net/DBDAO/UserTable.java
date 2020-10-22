@@ -16,12 +16,14 @@ public class UserTable implements DAOInterface<RegisterRequest, RegisterResponse
 
     @Override
     public RegisterResponse Update(RegisterRequest request) {
-        return null;
+        return new RegisterResponse(new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge(),
+                request.getEmail(), request.getPassword(), request.getPhoneNumber()), null);
     }
 
     @Override
     public LoginResponse Delete(LoginRequest request) {
-        return null;
+        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
+                "password", "111-222-3333"), null);
     }
 
     @Override
