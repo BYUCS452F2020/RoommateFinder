@@ -2,11 +2,11 @@ package com.example.roommatefinder.net.DBDAO;
 
 import com.example.roommatefinder.model.Rating;
 import com.example.roommatefinder.model.service.request.CreateRatingRequest;
-import com.example.roommatefinder.model.service.request.RatingRequest;
+import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.response.CreateRatingResponse;
-import com.example.roommatefinder.model.service.response.RatingResponse;
+import com.example.roommatefinder.model.service.response.RatingsResponse;
 
-public class RatingTable implements DAOInterface<CreateRatingRequest, CreateRatingResponse, RatingRequest, RatingResponse>{
+public class RatingTable implements DAOInterface<CreateRatingRequest, CreateRatingResponse, RatingsRequest, RatingsResponse>{
     @Override
     public CreateRatingResponse Create(CreateRatingRequest request) {
         return new CreateRatingResponse(true);
@@ -18,13 +18,13 @@ public class RatingTable implements DAOInterface<CreateRatingRequest, CreateRati
     }
 
     @Override
-    public RatingResponse Delete(RatingRequest request) {
+    public RatingsResponse Delete(RatingsRequest request) {
         //probably won't need
-        return new RatingResponse(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+        return new RatingsResponse(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
     }
 
     @Override
-    public RatingResponse Query(RatingRequest request) {
-        return new RatingResponse(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+    public RatingsResponse Query(RatingsRequest request) {
+        return new RatingsResponse(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
     }
 }

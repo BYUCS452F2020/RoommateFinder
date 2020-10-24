@@ -18,7 +18,7 @@ public class CreateRatingPresenter implements CreateRatingTaskFacade.Observer {
     }
 
     public interface View {
-        void onCreateRatingResult(CreateRatingResponse response)
+        void onCreateRatingResult(CreateRatingResponse response);
     }
 
     public CreateRatingPresenter(View view) {
