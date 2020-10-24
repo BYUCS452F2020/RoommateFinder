@@ -6,6 +6,8 @@ import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.response.CreateRatingResponse;
 import com.example.roommatefinder.model.service.response.RatingsResponse;
 
+import java.util.ArrayList;
+
 public class RatingTable implements DAOInterface<CreateRatingRequest, CreateRatingResponse, RatingsRequest, RatingsResponse>{
     @Override
     public CreateRatingResponse Create(CreateRatingRequest request) {
@@ -20,11 +22,20 @@ public class RatingTable implements DAOInterface<CreateRatingRequest, CreateRati
     @Override
     public RatingsResponse Delete(RatingsRequest request) {
         //probably won't need
-        return new RatingsResponse(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+        ArrayList<Rating> ratings = new ArrayList<>();
+
+        ratings.add(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+
+        return new RatingsResponse(ratings);
     }
 
     @Override
     public RatingsResponse Query(RatingsRequest request) {
-        return new RatingsResponse(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+
+        ArrayList<Rating> ratings = new ArrayList<>();
+
+        ratings.add(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+
+        return new RatingsResponse(ratings);
     }
 }
