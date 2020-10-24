@@ -2,7 +2,7 @@ package com.example.roommatefinder.model.service.request;
 
 import com.example.roommatefinder.model.Location;
 
-public class CreateLocationRequest {
+public class CreateLocationRequest extends Request {
     private Location location;
 
     public CreateLocationRequest(Location location) {

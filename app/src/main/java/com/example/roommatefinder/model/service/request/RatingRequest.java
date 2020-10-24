@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model.service.request;
 
-public class RatingRequest {
+public class RatingRequest extends Request {
     //Query
     private String ratingID;//we won't ever know the ratingID
     private String username;
