@@ -21,7 +21,6 @@ public class RegisterPresenter implements RegisterTaskFacade.Observer {
         // If needed, specify methods here that will be called on the view in response to model updates
     }
 
-
     public RegisterPresenter(View view){
         this.view = view;
     }

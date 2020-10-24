@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model.service.request;
 
-public class RegisterRequest {
+public class RegisterRequest extends Request {
 
     private String firstName;
     private String lastName;

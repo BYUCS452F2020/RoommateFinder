@@ -19,6 +19,7 @@ public class RegisterTaskFacade extends AsyncTask<RegisterRequest, Void, Registe
     public RegisterTaskFacade(Observer observer) {
         this.observer = observer;
     }
+
     @Override
     protected RegisterResponse doInBackground(RegisterRequest... registerRequests) {
         //register user

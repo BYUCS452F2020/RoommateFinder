@@ -2,7 +2,7 @@ package com.example.roommatefinder.model.service.request;
 
 import com.example.roommatefinder.model.Preference;
 
-public class CreatePreferenceRequest {
+public class CreatePreferenceRequest extends Request {
     private Preference preference;
 
     public CreatePreferenceRequest(Preference preference) {

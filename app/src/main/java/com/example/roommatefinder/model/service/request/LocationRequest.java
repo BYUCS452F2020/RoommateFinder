@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model.service.request;
 
-public class LocationRequest {
+public class LocationRequest extends Request {
     //query
     private String username;
 

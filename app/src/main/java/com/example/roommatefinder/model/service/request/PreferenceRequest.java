@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model.service.request;
 
-public class PreferenceRequest {
+public class PreferenceRequest extends Request {
     //Used to query from Table
     private String username;
 
