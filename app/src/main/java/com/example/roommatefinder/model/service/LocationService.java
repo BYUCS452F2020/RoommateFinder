@@ -10,7 +10,7 @@ public class LocationService {
 
     public void getLocation(LocationRequest request, LocationTaskFacade.Observer observer) throws IOException {
         ServerFacade serverFacade = getServerFacade();
-        //TODO: Make and call location function in ServerFacade.
+        //TODO: Make and call getLocation function in ServerFacade.
     }
 
     private ServerFacade getServerFacade() {
