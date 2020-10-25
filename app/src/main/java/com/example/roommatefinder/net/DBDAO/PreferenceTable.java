@@ -6,25 +6,21 @@ import com.example.roommatefinder.model.service.request.PreferenceRequest;
 import com.example.roommatefinder.model.service.response.CreatePreferenceResponse;
 import com.example.roommatefinder.model.service.response.PreferenceResponse;
 
-public class PreferenceTable implements DAOInterface<CreatePreferenceRequest, CreatePreferenceResponse, PreferenceRequest, PreferenceResponse>  {
-    @Override
-    public CreatePreferenceResponse Create(CreatePreferenceRequest request) {
-        return new CreatePreferenceResponse(true);
+public class PreferenceTable {
+    public Preference Create(CreatePreferenceRequest request) {
+        return new Preference(request.getPreference().getUsername(), 9, 5, 7, 240.0, "Temp", "2 years");
     }
 
-    @Override
-    public CreatePreferenceResponse Update(CreatePreferenceRequest request) {
-        return new CreatePreferenceResponse(true);
+    public Boolean Update(CreatePreferenceRequest request) {
+        return true;
     }
 
-    @Override
-    public PreferenceResponse Delete(PreferenceRequest request) {
+    public Boolean Delete(PreferenceRequest request) {
         //probably won't need this
-        return new PreferenceResponse(new Preference(request.getUsername(), 9, 5, 7, 240.0, "Temp", "2 years"), true);
+        return true;
     }
 
-    @Override
-    public PreferenceResponse Query(PreferenceRequest request) {
-        return new PreferenceResponse(new Preference(request.getUsername(), 9, 5, 7, 240.0, "Temp", "2 years"), true);
+    public Preference Query(PreferenceRequest request) {
+        return new Preference(request.getUsername(), 9, 5, 7, 240.0, "Temp", "2 years");
     }
 }

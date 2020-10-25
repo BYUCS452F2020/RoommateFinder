@@ -6,30 +6,24 @@ import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 
-public class UserTable implements DAOInterface<RegisterRequest, RegisterResponse, LoginRequest, LoginResponse> {
+public class UserTable {
     
-    @Override
-    public RegisterResponse Create(RegisterRequest request) {
-        return new RegisterResponse(new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge()
-        , request.getEmail(), request.getPassword(), request.getPhoneNumber()), null);
+    public User Create(RegisterRequest request) {
+        return new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge()
+        , request.getEmail(), request.getPassword(), request.getPhoneNumber());
     }
 
-    @Override
-    public RegisterResponse Update(RegisterRequest request) {
-        return new RegisterResponse(new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge(),
-                request.getEmail(), request.getPassword(), request.getPhoneNumber()), null);
+    public Boolean Update(RegisterRequest request) {
+        return true;
     }
 
-    @Override
-    public LoginResponse Delete(LoginRequest request) {
-        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333"), null);
+    public Boolean Delete(LoginRequest request) {
+        return true;
     }
-
-    @Override
-    public LoginResponse Query(LoginRequest request) {
-        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333"), null);
+    
+    public User Query(LoginRequest request) {
+        return new User("Test", "User", 'm', 25, "testuser@gmail.com",
+                "password", "111-222-3333");
     }
 
 }

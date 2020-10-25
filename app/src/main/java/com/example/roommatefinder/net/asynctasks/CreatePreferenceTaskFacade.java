@@ -2,6 +2,7 @@ package com.example.roommatefinder.net.asynctasks;
 
 import android.os.AsyncTask;
 
+import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.response.CreatePreferenceResponse;
 import com.example.roommatefinder.net.DBDAO.PreferenceTable;
@@ -21,7 +22,14 @@ public class CreatePreferenceTaskFacade extends AsyncTask<CreatePreferenceReques
     protected CreatePreferenceResponse doInBackground(CreatePreferenceRequest... requests) {
         //create preference
         PreferenceTable preferenceTable = new PreferenceTable();
-        CreatePreferenceResponse response = preferenceTable.Create(requests[0]);
+        CreatePreferenceResponse response = null;
+        Preference preference = preferenceTable.Create(requests[0]);
+        if (preference != null) {
+            response = new CreatePreferenceResponse(true);
+        }
+        else {
+            response = new CreatePreferenceResponse(false);
+        }
         return response;
     }
 }
