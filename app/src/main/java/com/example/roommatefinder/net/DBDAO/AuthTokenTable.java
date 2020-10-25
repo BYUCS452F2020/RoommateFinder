@@ -6,10 +6,14 @@ import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
+import com.example.roommatefinder.net.SQLAccess;
+
+import java.sql.SQLException;
 
 public class AuthTokenTable {
     public AuthToken Create(LoginRequest request) {
         //create authToken
+         new SQLAccess().createNewDatabase("test");
         return new AuthToken("Token");
     }
 

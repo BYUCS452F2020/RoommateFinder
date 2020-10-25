@@ -1,3 +1,4 @@
+
 package com.example.roommatefinder.model.service;
 
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
@@ -10,6 +11,7 @@ public class CreatePreferenceService {
 
     public void createPreference(CreatePreferenceRequest request, CreatePreferenceTaskFacade.Observer observer) throws IOException {
         ServerFacade serverFacade = getServerFacade();
+        serverFacade.addPreference(request, observer);
         //TODO: Make and call createPreference function in ServerFacade.
     }
 
