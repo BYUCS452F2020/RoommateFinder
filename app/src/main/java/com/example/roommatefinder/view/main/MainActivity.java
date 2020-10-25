@@ -22,6 +22,8 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "MainActivity";
+
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
 
