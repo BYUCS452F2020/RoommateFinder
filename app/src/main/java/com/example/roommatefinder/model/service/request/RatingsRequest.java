@@ -1,11 +1,11 @@
 package com.example.roommatefinder.model.service.request;
 
-public class RatingRequest extends Request {
+public class RatingsRequest extends Request {
     //Query
     private String ratingID;//we won't ever know the ratingID
     private String username;
 
-    public RatingRequest(String ratingID, String username) {
+    public RatingsRequest(String ratingID, String username) {
         this.username = username;
         this.ratingID = ratingID;
     }
