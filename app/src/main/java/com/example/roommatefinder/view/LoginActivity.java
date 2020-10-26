@@ -101,15 +101,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
     @Override
     public void onLoginResult(LoginResponse response) {
-        if (response.getMessage() == null) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            intent.putExtra(MainActivity.CURRENT_USER_KEY, response.getUser().toString());
-//            intent.putExtra(MainActivity.AUTH_TOKEN_KEY, response.getAuthToken().toString());
-//
-//            startActivity(intent);
+        if (response.isSuccess()) {
+            loginSuccessful(response);
         }
         else {
-            Toast.makeText(this, "Failed to signUp. " + response.getMessage(), Toast.LENGTH_LONG).show();
+            loginUnsuccessful(response);
         }
     }
 }
