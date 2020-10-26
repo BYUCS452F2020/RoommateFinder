@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 
+import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 
 import java.net.InetAddress;
@@ -45,7 +46,6 @@ public class SQLAccess {
         public static boolean addEntryToAuthTokenTable(LoginRequest request, String generatedToken) throws SQLException {
             establishConnection();
             if (conn != null) {
-                Statement statement = conn.createStatement();
                 PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO AuthToken (Token, Email, TimeCreated)" +
                         "VALUES(?,?,?);");
                 preparedStatement.setString(1,generatedToken);
@@ -65,5 +65,26 @@ public class SQLAccess {
             }
             return false;
         }
+
+        public static User queryUser(LoginRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM User WHERE Email = ?");
+                preparedStatement.setString(1,request.getEmail());
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()) {
+                    String email = resultSet.getString(1);
+                    String phoneNumber = resultSet.getString(3);
+                    String gender = resultSet.getString(4);
+                    String firstName = resultSet.getString(5);
+                    String lastName = resultSet.getString(6);
+                    Integer age = resultSet.getInt(7);
+                    return new User(firstName, lastName, gender.charAt(0), age, email, null, phoneNumber);
+                }
+            }
+            return null;
+        }
+
 
 }
