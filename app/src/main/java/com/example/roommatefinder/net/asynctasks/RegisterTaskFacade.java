@@ -31,11 +31,11 @@ public class RegisterTaskFacade extends AsyncTask<RegisterRequest, Void, Registe
         if (user != null) {
             //login user
             AuthTokenTable authTokenTable = new AuthTokenTable();
-            AuthToken authToken = authTokenTable.Create(new LoginRequest(response.getUser().getEmail(), response.getUser().getPassword()));
+            AuthToken authToken = authTokenTable.Create(new LoginRequest(user.getEmail(), user.getPassword()));
             response = new RegisterResponse(user, authToken);
         }
         else {
-            response = new RegisterResponse("Not able to register");
+            response = new RegisterResponse("Not able to register, Email is already associated with an account");
         }
         return response;
     }

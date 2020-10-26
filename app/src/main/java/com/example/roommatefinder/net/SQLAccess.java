@@ -4,6 +4,7 @@ import android.os.StrictMode;
 
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
+import com.example.roommatefinder.model.service.request.RegisterRequest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -58,12 +59,35 @@ public class SQLAccess {
             return false;
         }
 
+        public static User addEntryToUserTable(RegisterRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO [User] (Email, Password, Phonenumber, Gender, FirstName, LastName, Age)" +
+                        "VALUES(?,?,?,?,?,?,?);");
+                preparedStatement.setString(1, request.getEmail());
+                preparedStatement.setString(2, request.getPassword());
+                preparedStatement.setString(3, request.getPhoneNumber());
+                preparedStatement.setString(4, request.getGender().toString());
+                preparedStatement.setString(5, request.getFirstName());
+                preparedStatement.setString(6, request.getLastName());
+                preparedStatement.setInt(7, request.getAge());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge(), request.getEmail(), request.getPassword(), request.getPhoneNumber());
+                }
+                else {
+                    return null;
+                }
+            }
+            return null;
+        }
+
         public static User queryUser(LoginRequest request) throws SQLException {
             establishConnection();
             if (conn != null) {
                 //this doesn't work right now, syntax error
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM ?");
-                preparedStatement.setString(1, "User");
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [User] WHERE Email = ?");
+                preparedStatement.setString(1, request.getEmail());
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()) {
