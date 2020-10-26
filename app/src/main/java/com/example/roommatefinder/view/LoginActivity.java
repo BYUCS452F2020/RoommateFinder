@@ -74,8 +74,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void loginSuccessful(LoginResponse loginResponse) {
         Intent intent = new Intent(this, MainActivity.class);
 
-        intent.putExtra(MainActivity.CURRENT_USER_KEY, loginResponse.getUser().toString());
-        intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken().toString());
+        //intent.putExtra(MainActivity.CURRENT_USER_KEY, loginResponse.getUser().toString());
+        //intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken().toString());
 
         loginInToast.cancel();
         startActivity(intent);
