@@ -1,6 +1,8 @@
 package com.example.roommatefinder.view;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.roommatefinder.R;
 import com.example.roommatefinder.model.service.request.LoginRequest;
@@ -31,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
 
         presenter = new LoginPresenter(this);
 
@@ -97,5 +102,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     public void onLoginResult(LoginResponse response) {
         //handle Login Result
+        loginSuccessful(response);
     }
 }

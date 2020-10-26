@@ -10,6 +10,7 @@ public class CreateLocationService {
 
     public void createLocation(CreateLocationRequest request, CreateLocationTaskFacade.Observer observer) throws IOException {
         ServerFacade serverFacade = getServerFacade();
+        serverFacade.createLocation(request, observer);
         //TODO: Make and call createLocation function in ServerFacade.
     }
 

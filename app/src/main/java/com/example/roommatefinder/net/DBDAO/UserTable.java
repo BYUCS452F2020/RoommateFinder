@@ -5,6 +5,9 @@ import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
+import com.example.roommatefinder.net.SQLAccess;
+
+import java.sql.SQLException;
 
 public class UserTable {
     
@@ -22,8 +25,12 @@ public class UserTable {
     }
     
     public User Query(LoginRequest request) {
-        return new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333");
+        try {
+            return SQLAccess.queryUser(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
