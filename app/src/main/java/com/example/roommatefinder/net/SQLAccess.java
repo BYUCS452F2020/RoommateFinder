@@ -1,23 +1,15 @@
 package com.example.roommatefinder.net;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Time;
 
 public class SQLAccess {
@@ -69,8 +61,9 @@ public class SQLAccess {
         public static User queryUser(LoginRequest request) throws SQLException {
             establishConnection();
             if (conn != null) {
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM User WHERE Email = ?");
-                preparedStatement.setString(1,request.getEmail());
+                //this doesn't work right now, syntax error
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM ?");
+                preparedStatement.setString(1, "User");
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()) {
