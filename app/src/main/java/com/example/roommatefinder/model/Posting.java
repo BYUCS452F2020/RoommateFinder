@@ -1,7 +1,7 @@
 package com.example.roommatefinder.model;
 
 public class Posting {
-
+    private User user;
     private String country;
     private String state;
     private String city;
@@ -9,13 +9,18 @@ public class Posting {
     private int buildNum;
     private int roomNum;
 
-    public Posting(String country, String state, String city, String street, int buildNum, int roomNum){
+    public Posting(User user, String country, String state, String city, String street, int buildNum, int roomNum){
+        this.user = user;
         this.country = country;
         this.state = state;
         this.city = city;
         this.street = street;
         this.buildNum = buildNum;
         this.roomNum = roomNum;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public String getCity() {
@@ -40,6 +45,10 @@ public class Posting {
 
     public String getStreet() {
         return street;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setBuildNum(int buildNum) {
