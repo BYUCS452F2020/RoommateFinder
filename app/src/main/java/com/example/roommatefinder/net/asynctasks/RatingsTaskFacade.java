@@ -2,9 +2,13 @@ package com.example.roommatefinder.net.asynctasks;
 
 import android.os.AsyncTask;
 
+import com.example.roommatefinder.model.Rating;
 import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.response.RatingsResponse;
 import com.example.roommatefinder.net.DBDAO.RatingTable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RatingsTaskFacade extends AsyncTask<RatingsRequest, Void, RatingsResponse> {
 
@@ -21,8 +25,17 @@ public class RatingsTaskFacade extends AsyncTask<RatingsRequest, Void, RatingsRe
     @Override
     protected RatingsResponse doInBackground(RatingsRequest ... requests) {
         RatingTable ratingTable = new RatingTable();
-        RatingsResponse response = ratingTable.Query(requests[0]);
-
+        ratingTable.Query(requests[0]);
+        //TODO: Make sure that this eventually returns all ratings relating to a user when requested.
+        List<Rating> ratings = ratingTable.Query(requests[0]);
+        RatingsResponse response = null;
+        if (ratings != null) {
+            response = new RatingsResponse(ratings);
+        }
+        else {
+            response = new RatingsResponse("No list of ratings was returned.");
+        }
+        
         return response;
     }
 

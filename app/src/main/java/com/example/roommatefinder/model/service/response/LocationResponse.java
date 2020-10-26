@@ -21,4 +21,9 @@ public class LocationResponse extends Response {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

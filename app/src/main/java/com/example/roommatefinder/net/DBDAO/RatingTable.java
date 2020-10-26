@@ -2,9 +2,12 @@ package com.example.roommatefinder.net.DBDAO;
 
 import com.example.roommatefinder.model.Rating;
 import com.example.roommatefinder.model.service.request.CreateRatingRequest;
-import com.example.roommatefinder.model.service.request.RatingRequest;
+import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.response.CreateRatingResponse;
-import com.example.roommatefinder.model.service.response.RatingResponse;
+import com.example.roommatefinder.model.service.response.RatingsResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RatingTable {
     public Rating Create(CreateRatingRequest request) {
@@ -15,12 +18,15 @@ public class RatingTable {
         return true;
     }
 
-    public Boolean Delete(RatingRequest request) {
+    public Boolean Delete(RatingsRequest request) {
         //probably won't need
         return true;
     }
 
-    public Rating Query(RatingRequest request) {
-        return new Rating(request.getRatingID(), request.getUsername(), 3, "comment");
+    public List<Rating> Query(RatingsRequest request) {
+        ArrayList<Rating> ratings = new ArrayList<>();
+        ratings.add(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+
+        return ratings;
     }
 }
