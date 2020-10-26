@@ -25,7 +25,6 @@ public class RatingsTaskFacade extends AsyncTask<RatingsRequest, Void, RatingsRe
     @Override
     protected RatingsResponse doInBackground(RatingsRequest ... requests) {
         RatingTable ratingTable = new RatingTable();
-        ratingTable.Query(requests[0]);
         //TODO: Make sure that this eventually returns all ratings relating to a user when requested.
         List<Rating> ratings = ratingTable.Query(requests[0]);
         RatingsResponse response = null;
