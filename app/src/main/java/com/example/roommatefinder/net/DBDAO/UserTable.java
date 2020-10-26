@@ -12,8 +12,12 @@ import java.sql.SQLException;
 public class UserTable {
     
     public User Create(RegisterRequest request) {
-        return new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge()
-        , request.getEmail(), request.getPassword(), request.getPhoneNumber());
+        try {
+           return SQLAccess.addEntryToUserTable(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Boolean Update(RegisterRequest request) {

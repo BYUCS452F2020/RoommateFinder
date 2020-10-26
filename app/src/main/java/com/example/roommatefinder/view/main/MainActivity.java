@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.roommatefinder.R;
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.view.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView firstName = findViewById(R.id.userName);
-        firstName.setText("Insert user name here");
+        firstName.setText(SessionCache.getInstance().getUser().getFirstName());
 
     }
 
