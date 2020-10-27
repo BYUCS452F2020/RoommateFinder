@@ -19,8 +19,8 @@ public class UserTable {
            return SQLAccess.addEntryToUserTable(request);
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public ChangeUserResponse Update(ChangeUserRequest request) {
