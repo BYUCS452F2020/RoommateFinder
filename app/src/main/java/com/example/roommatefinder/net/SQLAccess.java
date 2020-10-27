@@ -7,10 +7,12 @@ import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
+import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
 import com.example.roommatefinder.model.service.response.DeleteUserResponse;
+import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
 
@@ -83,6 +85,22 @@ public class SQLAccess {
                 }
             }
             return new UpdateAuthTokenResponse(false);
+        }
+
+        public static LogoutResponse deleteAuthToken(LogoutRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [AuthToken] WHERE Token = ?");
+                preparedStatement.setString(1, request.getToken());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new LogoutResponse(true);
+                }
+                else {
+                    return new LogoutResponse(false);
+                }
+            }
+            return new LogoutResponse(false);
         }
 
         public static User addEntryToUserTable(RegisterRequest request) throws SQLException {

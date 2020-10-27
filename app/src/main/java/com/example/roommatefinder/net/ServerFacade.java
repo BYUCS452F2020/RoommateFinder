@@ -8,11 +8,13 @@ import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.LocationRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
+import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.PreferenceRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.net.asynctasks.CreateLocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.CreatePreferenceTaskFacade;
+import com.example.roommatefinder.net.asynctasks.DeleteAuthTokenTaskFacade;
 import com.example.roommatefinder.net.asynctasks.DeleteUserTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LoginTaskFacade;
@@ -71,6 +73,12 @@ public class ServerFacade {
         //TODO: Implement AuthTokenCheck
         UpdateAuthTokenTaskFacade updateAuthTokenTask = new UpdateAuthTokenTaskFacade(observer);
         updateAuthTokenTask.execute(request);
+    }
+
+    public void deleteAuthToken(LogoutRequest request, DeleteAuthTokenTaskFacade.Observer observer) {
+        //TODO: Implement AuthTokenCheck
+        DeleteAuthTokenTaskFacade deleteAuthTokenTask = new DeleteAuthTokenTaskFacade(observer);
+        deleteAuthTokenTask.execute(request);
     }
 
     

@@ -47,7 +47,12 @@ public class AuthTokenTable {
 
     public LogoutResponse Delete(LogoutRequest request) {
         //Use this when they Logout
-        return true;
+        try {
+            return SQLAccess.deleteAuthToken(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new LogoutResponse(e.getMessage());
+        }
     }
 
     public AuthToken Query(LogoutRequest request) {
