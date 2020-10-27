@@ -6,6 +6,7 @@ import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.CreateLocationRequest;
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
+import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LocationRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
@@ -16,6 +17,7 @@ import com.example.roommatefinder.net.asynctasks.CreateLocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.CreatePreferenceTaskFacade;
 import com.example.roommatefinder.net.asynctasks.DeleteAuthTokenTaskFacade;
 import com.example.roommatefinder.net.asynctasks.DeleteUserTaskFacade;
+import com.example.roommatefinder.net.asynctasks.GetAuthTokenTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LoginTaskFacade;
 import com.example.roommatefinder.net.asynctasks.PreferenceTaskFacade;
@@ -79,6 +81,11 @@ public class ServerFacade {
         //TODO: Implement AuthTokenCheck
         DeleteAuthTokenTaskFacade deleteAuthTokenTask = new DeleteAuthTokenTaskFacade(observer);
         deleteAuthTokenTask.execute(request);
+    }
+
+    public void queryAuthToken(GetAuthTokenRequest request, GetAuthTokenTaskFacade.Observer observer) {
+        GetAuthTokenTaskFacade getAuthTokenTask = new GetAuthTokenTaskFacade(observer);
+        getAuthTokenTask.execute(request);
     }
 
     

@@ -6,12 +6,14 @@ import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
+import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
 import com.example.roommatefinder.model.service.response.DeleteUserResponse;
+import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
@@ -67,6 +69,37 @@ public class SQLAccess {
 //                }
             }
             return false;
+        }
+
+        public static GetAuthTokenResponse queryAuthToken(GetAuthTokenRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                //this doesn't work right now, syntax error
+                if (request.getToken() != null) {
+                    PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [AuthToken] WHERE Token = ?");
+                    preparedStatement.setString(1, request.getToken().getAuthToken());
+
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        String token = resultSet.getString(1);
+                        String email = resultSet.getString(2);
+                        Time timeCreated = resultSet.getTime(3);
+                        return new GetAuthTokenResponse(new AuthToken(token, email, timeCreated));
+                    }
+                } else if (request.getEmail() != null) {
+                    PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [AuthToken] WHERE Email = ?");
+                    preparedStatement.setString(1, request.getEmail());
+
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        String token = resultSet.getString(1);
+                        String email = resultSet.getString(2);
+                        Time timeCreated = resultSet.getTime(3);
+                        return new GetAuthTokenResponse(new AuthToken(token, email, timeCreated));
+                    }
+                }
+            }
+            return new GetAuthTokenResponse(false);
         }
 
         public static UpdateAuthTokenResponse updateAuthToken(UpdateAuthTokenRequest request) throws SQLException {

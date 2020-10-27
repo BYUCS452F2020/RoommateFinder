@@ -2,9 +2,11 @@ package com.example.roommatefinder.net.DBDAO;
 
 import com.example.roommatefinder.Utils.RandomAuthTokenGenerator;
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
+import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
 import com.example.roommatefinder.net.SQLAccess;
@@ -55,7 +57,12 @@ public class AuthTokenTable {
         }
     }
 
-    public AuthToken Query(LogoutRequest request) {
-        return new AuthToken("Token");
+    public GetAuthTokenResponse Query(GetAuthTokenRequest request) {
+        try {
+            return SQLAccess.queryAuthToken(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new GetAuthTokenResponse(e.getMessage());
+        }
     }
 }

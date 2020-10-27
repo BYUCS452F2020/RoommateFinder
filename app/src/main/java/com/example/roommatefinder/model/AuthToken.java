@@ -1,14 +1,36 @@
 package com.example.roommatefinder.model;
 
+import java.sql.Time;
+
 public class AuthToken {
     private String authToken;
+    private String email;
+    private Time timeCreated;
 
     public AuthToken(String authToken) {
         this.authToken = authToken;
     }
 
-    public AuthToken() {
+    public AuthToken(String authToken, String email, Time timeCreated) {
+        this.authToken = authToken;
+        this.email = email;
+        this.timeCreated = timeCreated;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Time getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(Time timeCreated) {
+        this.timeCreated = timeCreated;
     }
 
     public String getAuthToken() {
