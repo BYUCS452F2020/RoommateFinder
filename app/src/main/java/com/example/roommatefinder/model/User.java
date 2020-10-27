@@ -1,5 +1,7 @@
 package com.example.roommatefinder.model;
 
+import androidx.annotation.Nullable;
+
 public class User {
     private String firstName;
     private String lastName;
@@ -47,4 +49,36 @@ public class User {
         return phoneNumber;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        User inUser = (User) obj;
+        if (this.age != inUser.age) {
+            return false;
+        }
+        if (!this.password.equals(inUser.password)) {
+            return false;
+        }
+        if (!this.email.equals(inUser.email)) {
+            return false;
+        }
+        if (!this.firstName.equals(inUser.firstName)) {
+            return false;
+        }
+        if (!this.lastName.equals(inUser.lastName)) {
+            return false;
+        }
+        if (!this.gender.equals(inUser.gender)) {
+            return false;
+        }
+        if (!this.phoneNumber.equals(inUser.phoneNumber)) {
+            return false;
+        }
+        return true;
+    }
 }

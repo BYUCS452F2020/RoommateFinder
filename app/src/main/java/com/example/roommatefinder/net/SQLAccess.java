@@ -8,9 +8,11 @@ import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
+import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
 import com.example.roommatefinder.model.service.response.DeleteUserResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
+import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -63,6 +65,24 @@ public class SQLAccess {
 //                }
             }
             return false;
+        }
+
+        public static UpdateAuthTokenResponse updateAuthToken(UpdateAuthTokenRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("UPDATE [AuthToken] SET TimeCreated = ?, Token = ? WHERE Token = ?");
+                preparedStatement.setTime(1, new Time(System.currentTimeMillis()));
+                preparedStatement.setString(2, request.getNewAuthToken());
+                preparedStatement.setString(3, request.getOldAuthToken());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new UpdateAuthTokenResponse(new AuthToken(request.getNewAuthToken()));
+                }
+                else {
+                    return new UpdateAuthTokenResponse(false);
+                }
+            }
+            return new UpdateAuthTokenResponse(false);
         }
 
         public static User addEntryToUserTable(RegisterRequest request) throws SQLException {
