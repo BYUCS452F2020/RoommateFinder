@@ -29,7 +29,6 @@ import com.example.roommatefinder.net.asynctasks.UpdateUserTaskFacade;
 public class ServerFacade {
 
     public void login(LoginRequest request, LoginTaskFacade.Observer observer) {
-        queryAuthToken(new GetAuthTokenRequest(new AuthToken("newToken")), null);
         LoginTaskFacade loginTask = new LoginTaskFacade(observer);
         loginTask.execute(request);
     }
@@ -81,7 +80,7 @@ public class ServerFacade {
     }
 
     public void logOut(LogoutRequest request, DeleteAuthTokenTaskFacade.Observer observer) {
-        //TODO: Implement AuthTokenCheck
+        //Tested and working, needs to be called
         DeleteAuthTokenTaskFacade deleteAuthTokenTask = new DeleteAuthTokenTaskFacade(observer);
         deleteAuthTokenTask.execute(request);
     }
