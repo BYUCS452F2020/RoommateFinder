@@ -1,5 +1,8 @@
 package com.example.roommatefinder.net.DBDAO;
 
+import android.annotation.SuppressLint;
+
+import com.example.roommatefinder.Utils.PasswordHasher;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
@@ -16,6 +19,8 @@ public class UserTable {
     public User Create(RegisterRequest request) {
         //Needs to check for AuthToken
         try {
+            @SuppressLint({"NewApi", "LocalSuppress"}) String newPassword = new PasswordHasher(request.getPassword()).getHashPassword();
+            request.setPassword(newPassword);
            return SQLAccess.addEntryToUserTable(request);
         } catch (SQLException e) {
             e.printStackTrace();
