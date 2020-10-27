@@ -2,11 +2,8 @@ package com.example.roommatefinder.net.DBDAO;
 
 import com.example.roommatefinder.Utils.RandomAuthTokenGenerator;
 import com.example.roommatefinder.model.AuthToken;
-import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
-import com.example.roommatefinder.model.service.response.LoginResponse;
-import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.net.SQLAccess;
 
 import java.sql.SQLException;

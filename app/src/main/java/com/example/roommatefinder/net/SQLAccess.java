@@ -3,8 +3,12 @@ package com.example.roommatefinder.net;
 import android.os.StrictMode;
 
 import com.example.roommatefinder.model.User;
+import com.example.roommatefinder.model.service.request.ChangeUserRequest;
+import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
+import com.example.roommatefinder.model.service.response.ChangeUserResponse;
+import com.example.roommatefinder.model.service.response.DeleteUserResponse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -101,6 +105,42 @@ public class SQLAccess {
                 }
             }
             return null;
+        }
+
+        public static ChangeUserResponse updateUser(ChangeUserRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("UPDATE [User] SET Password = ?, Phonenumber = ?, FirstName = ?, LastName = ?, Age = ?");
+                preparedStatement.setString(1, request.getPassword());
+                preparedStatement.setString(2, request.getPhoneNumber());
+                preparedStatement.setString(3, request.getFirstName());
+                preparedStatement.setString(4, request.getLastName());
+                preparedStatement.setInt(5, request.getAge());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new ChangeUserResponse(true);
+                }
+                else {
+                    return new ChangeUserResponse(false);
+                }
+            }
+            return new ChangeUserResponse(false);
+        }
+
+        public static DeleteUserResponse deleteUser(DeleteUserRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [User] WHERE Email = ?");
+                preparedStatement.setString(1, request.getEmail());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new DeleteUserResponse(true);
+                }
+                else {
+                    return new DeleteUserResponse(false);
+                }
+            }
+            return new DeleteUserResponse(false);
         }
 
 

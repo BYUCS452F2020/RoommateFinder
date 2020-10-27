@@ -2,6 +2,7 @@ package com.example.roommatefinder.net;
 
 import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.User;
+import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.CreateLocationRequest;
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.request.LocationRequest;
@@ -45,6 +46,10 @@ public class ServerFacade {
     public void createLocation(CreateLocationRequest request, CreateLocationTaskFacade.Observer observer) {
         CreateLocationTaskFacade createLocationTask = new CreateLocationTaskFacade(observer);
         createLocationTask.execute(request);
+    }
+
+    public void updateUser(ChangeUserRequest request) {
+
     }
     
 }
