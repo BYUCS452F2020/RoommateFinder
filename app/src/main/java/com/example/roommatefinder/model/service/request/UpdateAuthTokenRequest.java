@@ -4,6 +4,11 @@ public class UpdateAuthTokenRequest {
     private String oldAuthToken;
     private String newAuthToken;
 
+
+    public UpdateAuthTokenRequest(String oldAuthToken) {
+        this.oldAuthToken = oldAuthToken;
+    }
+
     public UpdateAuthTokenRequest(String oldAuthToken, String newAuthToken) {
         this.oldAuthToken = oldAuthToken;
         this.newAuthToken = newAuthToken;

@@ -1,5 +1,6 @@
 package com.example.roommatefinder.net;
 
+import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
@@ -28,6 +29,7 @@ import com.example.roommatefinder.net.asynctasks.UpdateUserTaskFacade;
 public class ServerFacade {
 
     public void login(LoginRequest request, LoginTaskFacade.Observer observer) {
+        queryAuthToken(new GetAuthTokenRequest(new AuthToken("newToken")), null);
         LoginTaskFacade loginTask = new LoginTaskFacade(observer);
         loginTask.execute(request);
     }
@@ -73,17 +75,20 @@ public class ServerFacade {
 
     public void updateAuthToken(UpdateAuthTokenRequest request, UpdateAuthTokenTaskFacade.Observer observer) {
         //TODO: Implement AuthTokenCheck
+        //Tested and working, needs to be called
         UpdateAuthTokenTaskFacade updateAuthTokenTask = new UpdateAuthTokenTaskFacade(observer);
         updateAuthTokenTask.execute(request);
     }
 
-    public void deleteAuthToken(LogoutRequest request, DeleteAuthTokenTaskFacade.Observer observer) {
+    public void logOut(LogoutRequest request, DeleteAuthTokenTaskFacade.Observer observer) {
         //TODO: Implement AuthTokenCheck
         DeleteAuthTokenTaskFacade deleteAuthTokenTask = new DeleteAuthTokenTaskFacade(observer);
         deleteAuthTokenTask.execute(request);
     }
 
     public void queryAuthToken(GetAuthTokenRequest request, GetAuthTokenTaskFacade.Observer observer) {
+        //Tested and working, needs to be called
+        //note this will either return a list<AuthTokens> or a single authToken
         GetAuthTokenTaskFacade getAuthTokenTask = new GetAuthTokenTaskFacade(observer);
         getAuthTokenTask.execute(request);
     }

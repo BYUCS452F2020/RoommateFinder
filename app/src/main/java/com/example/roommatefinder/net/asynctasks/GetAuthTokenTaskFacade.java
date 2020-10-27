@@ -15,7 +15,9 @@ public class GetAuthTokenTaskFacade extends AsyncTask<GetAuthTokenRequest, Void,
     }
 
     public interface Observer {
-        public void onRetrieveAuthTokenResponse(GetAuthTokenResponse response);
+        public void onRetrieveAuthTokenSingleAuthResponse(GetAuthTokenResponse response);
+        public void onRetrieveAuthTokenMultipleAuthResponse(GetAuthTokenResponse response);
+        public void unsuccessful(GetAuthTokenResponse response);
     }
 
     @Override
@@ -27,6 +29,16 @@ public class GetAuthTokenTaskFacade extends AsyncTask<GetAuthTokenRequest, Void,
     @Override
     protected void onPostExecute(GetAuthTokenResponse getAuthTokenResponse) {
         super.onPostExecute(getAuthTokenResponse);
-        observer.onRetrieveAuthTokenResponse(getAuthTokenResponse);
+        if (getAuthTokenResponse.isSuccess()) {
+            if (getAuthTokenResponse.getAuthToken() != null) {
+                observer.onRetrieveAuthTokenSingleAuthResponse(getAuthTokenResponse);
+            }
+            else if (getAuthTokenResponse.getAuthTokens() != null) {
+                observer.onRetrieveAuthTokenMultipleAuthResponse(getAuthTokenResponse);
+            }
+        }
+        else {
+            observer.unsuccessful(getAuthTokenResponse);
+        }
     }
 }

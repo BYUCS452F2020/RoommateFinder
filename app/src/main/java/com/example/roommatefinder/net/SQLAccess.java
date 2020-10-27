@@ -24,6 +24,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SQLAccess {
     private static String ip = "192.168.1.4"; //ip address of sql server
@@ -91,12 +93,14 @@ public class SQLAccess {
                     preparedStatement.setString(1, request.getEmail());
 
                     ResultSet resultSet = preparedStatement.executeQuery();
+                    List<AuthToken> authTokens = new LinkedList<>();
                     while (resultSet.next()) {
                         String token = resultSet.getString(1);
                         String email = resultSet.getString(2);
                         Time timeCreated = resultSet.getTime(3);
-                        return new GetAuthTokenResponse(new AuthToken(token, email, timeCreated));
+                        authTokens.add(new AuthToken(token, email, timeCreated));
                     }
+                    return new GetAuthTokenResponse(authTokens);
                 }
             }
             return new GetAuthTokenResponse(false);
