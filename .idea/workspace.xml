@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1612224-5102-4ff3-a8e9-a46061fb9da7" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -20,6 +21,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+=======
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/roommatefinder/net/SQLAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/roommatefinder/net/SQLAccess.java" afterDir="false" />
     </list>
@@ -28,7 +31,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_30" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -259,9 +261,16 @@
       <screen x="0" y="0" width="1368" height="872" />
     </state>
     <state x="94" y="94" width="1181" height="685" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1368.872@0.0.1368.872" timestamp="1603000030968" />
+<<<<<<< Updated upstream
     <state x="379" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1603859212573">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
     <state x="379" y="268" key="com.intellij.ide.util.TipDialog/0.0.1368.872@0.0.1368.872" timestamp="1603859212573" />
+=======
+    <state x="379" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1603861531411">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state x="379" y="268" key="com.intellij.ide.util.TipDialog/0.0.1368.872@0.0.1368.872" timestamp="1603861531411" />
+>>>>>>> Stashed changes
   </component>
 </project>
