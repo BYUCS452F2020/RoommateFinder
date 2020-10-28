@@ -1,6 +1,5 @@
 package com.example.roommatefinder.net.DBDAO;
 
-import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
 import com.example.roommatefinder.model.service.response.CreatePostingResponse;

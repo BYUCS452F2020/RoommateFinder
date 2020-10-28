@@ -1,7 +1,7 @@
 package com.example.roommatefinder.model;
 
 public class Preference {
-    private String username;
+    private String email;
     private int preferredTimeToSleep; //stored as military time but displayed in 12 hr time
     private int socialLevel; //From a scale of 1-10
     private int cleanlinessLevel; //Scale 1-10
@@ -9,8 +9,8 @@ public class Preference {
     private String type; //male only contract?
     private String lengthOfContract;
 
-    public Preference(String username, int preferredTimeToSleep, int socialLevel, int cleanlinessLevel, double price, String type, String lengthOfContract) {
-        this.username = username;
+    public Preference(String email, int preferredTimeToSleep, int socialLevel, int cleanlinessLevel, double price, String type, String lengthOfContract) {
+        this.email = email;
         this.preferredTimeToSleep = preferredTimeToSleep;
         this.socialLevel = socialLevel;
         this.cleanlinessLevel = cleanlinessLevel;
@@ -19,12 +19,12 @@ public class Preference {
         this.lengthOfContract = lengthOfContract;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getPreferredTimeToSleep() {

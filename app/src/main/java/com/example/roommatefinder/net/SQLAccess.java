@@ -4,14 +4,17 @@ import android.os.StrictMode;
 
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.Posting;
+import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
+import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
+import com.example.roommatefinder.model.service.request.PreferenceRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
@@ -21,6 +24,7 @@ import com.example.roommatefinder.model.service.response.DeleteUserResponse;
 import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.model.service.response.PostingsResponse;
+import com.example.roommatefinder.model.service.response.PreferenceResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
 
@@ -252,16 +256,6 @@ public class SQLAccess {
             return new DeleteUserResponse(false);
         }
 
-//        public static CreatePreferenceResponse createPreference() throws SQLException {
-//            establishConnection();
-//            if (conn != null) {
-//                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO AuthToken (Token, Email, TimeCreated)" +
-//                        "VALUES(?,?,?);");
-//            }
-//
-//            return new CreatePreferenceResponse(false);
-//        }
-
         public static CreatePostingResponse insertPostingIntoPostingTable(CreatePostingRequest request) throws SQLException {
             establishConnection();
             if (conn != null) {
@@ -288,7 +282,7 @@ public class SQLAccess {
                     return new CreatePostingResponse(posting);
                 }
                 else {
-                    return null;
+                    return new CreatePostingResponse("Failed to insert posting into the database.");
                 }
             }
 
@@ -322,5 +316,61 @@ public class SQLAccess {
             return new PostingsResponse("Failed to establish a connection for querying postings.");
         }
 
+        public static CreatePreferenceResponse createPreference(CreatePreferenceRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                Preference preference = request.getPreference();
 
+                //Delete any existing preference a user might have. Users can only have one preference at a time.
+                //Note: a preference is an object that stores multiple preferences in real life.
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Preference] WHERE Email = ?");
+                preparedStatement.setString(1, preference.getEmail());
+                preparedStatement.executeUpdate();
+
+                //Insert the new preference into the Preference Table.
+                preparedStatement = conn.prepareStatement("INSERT INTO [Preference] (Email, TimeToSleep, SocialLevel, Cleanliness, Price, Type, Contract)" +
+                        "VALUES(?,?,?,?,?,?,?)");
+
+                preparedStatement.setString(1, preference.getEmail());
+                preparedStatement.setInt(2, preference.getPreferredTimeToSleep());
+                preparedStatement.setInt(3, preference.getSocialLevel());
+                preparedStatement.setInt(4, preference.getCleanlinessLevel());
+                preparedStatement.setDouble(5, preference.getPrice());
+                preparedStatement.setString(6, preference.getType());
+                preparedStatement.setString(7, preference.getLengthOfContract());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new CreatePreferenceResponse(true);
+                }
+                else {
+                    return new CreatePreferenceResponse(false);
+                }
+            }
+
+            return new CreatePreferenceResponse(false);
+        }
+
+        public static PreferenceResponse queryPreference(PreferenceRequest request) throws SQLException{
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Preference] WHERE Email = ?");
+                preparedStatement.setString(1, request.getEmail());
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()) {
+                    String email = resultSet.getString(1);
+                    Integer timeToSleep = resultSet.getInt(2);
+                    Integer socialLevel = resultSet.getInt(3);
+                    Integer cleanliness = resultSet.getInt(4);
+                    Double price = resultSet.getDouble(5);
+                    String type = resultSet.getString(6);
+                    String contract = resultSet.getString(7);
+
+                    return new PreferenceResponse(new Preference(email, timeToSleep, socialLevel, cleanliness, price, type, contract), true);
+                }
+            }
+
+            return new PreferenceResponse(null, false);
+        }
 }
