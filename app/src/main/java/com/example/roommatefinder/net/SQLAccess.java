@@ -3,18 +3,24 @@ package com.example.roommatefinder.net;
 import android.os.StrictMode;
 
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
+import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
+import com.example.roommatefinder.model.service.request.PostingsRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
+import com.example.roommatefinder.model.service.response.CreatePostingResponse;
+import com.example.roommatefinder.model.service.response.CreatePreferenceResponse;
 import com.example.roommatefinder.model.service.response.DeleteUserResponse;
 import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
+import com.example.roommatefinder.model.service.response.PostingsResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
 
@@ -24,6 +30,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -230,22 +237,90 @@ public class SQLAccess {
             return new DeleteUserResponse(false);
         }
 
-    public static DeleteUserResponse deleteAllUsers() throws SQLException {
-        establishConnection();
-        if (conn != null) {
-            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [User]");
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return new DeleteUserResponse(true);
+        public static DeleteUserResponse deleteAllUsers() throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [User]");
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new DeleteUserResponse(true);
+                }
+                else {
+                    return new DeleteUserResponse(false);
+                }
             }
-            else {
-                return new DeleteUserResponse(false);
-            }
+            return new DeleteUserResponse(false);
         }
-        return new DeleteUserResponse(false);
-    }
 
+//        public static CreatePreferenceResponse createPreference() throws SQLException {
+//            establishConnection();
+//            if (conn != null) {
+//                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO AuthToken (Token, Email, TimeCreated)" +
+//                        "VALUES(?,?,?);");
+//            }
+//
+//            return new CreatePreferenceResponse(false);
+//        }
 
+        public static CreatePostingResponse insertPostingIntoPostingTable(CreatePostingRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                Posting posting = request.getPosting();
+
+                //Delete any existing posing a user might have. Users can only have one postings at a time.
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Posting] WHERE Email = ?");
+                preparedStatement.setString(1, posting.getUser().getEmail());
+                preparedStatement.executeUpdate();
+
+                //Insert the new posting into the Posting Table.
+                preparedStatement = conn.prepareStatement("INSERT INTO [Posting] (Email, Country, State, City, StreetName, BuildingNumber, ApartmentNumber)" +
+                        "VALUES(?,?,?,?,?,?,?)");
+
+                preparedStatement.setString(1, posting.getUser().getEmail());
+                preparedStatement.setString(2, posting.getCountry());
+                preparedStatement.setString(3, posting.getState());
+                preparedStatement.setString(4, posting.getCity());
+                preparedStatement.setString(5, posting.getStreet());
+                preparedStatement.setInt(6, posting.getBuildNum());
+                preparedStatement.setInt(7, posting.getRoomNum());
+                int result = preparedStatement.executeUpdate();
+                if (result != 0) {
+                    return new CreatePostingResponse(posting);
+                }
+                else {
+                    return null;
+                }
+            }
+
+            return new CreatePostingResponse("Failed to establish a connection for adding a posting.");
+        }
+
+        public static PostingsResponse queryAllPostings(PostingsRequest request) throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                User responseUser;
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Posting]");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                ArrayList<Posting> postings = new ArrayList<>();
+                while (resultSet.next()) {
+                    String email = resultSet.getString(1);
+                    String country = resultSet.getString(2);
+                    String state = resultSet.getString(3);
+                    String city = resultSet.getString(4);
+                    String streetName = resultSet.getString(5);
+                    Integer buildingNumber = resultSet.getInt(6);
+                    Integer apartmentNumber = resultSet.getInt(7);
+
+                    responseUser = new User(null,null, null, 0, email, null, null);
+
+                    postings.add(new Posting(responseUser, country, state, city, streetName, buildingNumber, apartmentNumber));
+                }
+
+                return new PostingsResponse(postings);
+            }
+
+            return new PostingsResponse("Failed to establish a connection for querying postings.");
+        }
 
 
 }

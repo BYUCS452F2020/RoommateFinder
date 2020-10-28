@@ -3,39 +3,49 @@ package com.example.roommatefinder.net.DBDAO;
 import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
+import com.example.roommatefinder.model.service.response.CreatePostingResponse;
+import com.example.roommatefinder.model.service.response.PostingsResponse;
+import com.example.roommatefinder.net.SQLAccess;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 
 public class PostingTable {
 
-    public Posting Create(CreatePostingRequest request) {
-        Posting posting = request.getPosting();
+    public CreatePostingResponse Create(CreatePostingRequest request) {
 
-        //TODO: implement the code that adds posting to the database table.
+        try {
+            return SQLAccess.insertPostingIntoPostingTable(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        return new Posting(posting.getUser(), posting.getCountry(), posting.getState(), posting.getCity(),
-                posting.getStreet(), posting.getBuildNum(),posting.getRoomNum());
+        return null;
     }
 
-    public Boolean Update(CreatePostingRequest request) {
+    public CreatePostingResponse Update(CreatePostingRequest request) {
 
-        //TODO: implement the code that updates the current posting for a user to a new one. (We can look into this one later.)
+        try {
+            return SQLAccess.insertPostingIntoPostingTable(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        return true;
+        return null;
     }
 
-    public Boolean Delete(Posting posting) {
+//    public Boolean Delete(Posting posting) {
+//        //Don't really need this one.
+//        return true;
+//    }
 
-        //TODO: implement the code that deletes a posting from the posting table.
+    public PostingsResponse Query(PostingsRequest request) {
 
-        return true;
-    }
+         try {
+             return SQLAccess.queryAllPostings(request);
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
 
-    public ArrayList<Posting> Query(PostingsRequest request) {
-         ArrayList<Posting> postings = new ArrayList<>();
-
-         //TODO: Return all of the postings for preview in main activity.
-
-         return postings;
+         return null;
     }
 }
