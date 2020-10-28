@@ -182,12 +182,13 @@ public class SQLAccess {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()) {
                     String email = resultSet.getString(1);
+                    String password = resultSet.getString(2);
                     String phoneNumber = resultSet.getString(3);
                     String gender = resultSet.getString(4);
                     String firstName = resultSet.getString(5);
                     String lastName = resultSet.getString(6);
                     Integer age = resultSet.getInt(7);
-                    return new User(firstName, lastName, gender.charAt(0), age, email, null, phoneNumber);
+                    return new User(firstName, lastName, gender.charAt(0), age, email, password, phoneNumber);
                 }
             }
             return null;

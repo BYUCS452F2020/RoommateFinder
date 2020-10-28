@@ -2,6 +2,7 @@ package com.example.roommatefinder.net.asynctasks;
 
 import android.os.AsyncTask;
 
+import com.example.roommatefinder.Utils.PasswordHasher;
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
@@ -28,9 +29,17 @@ public class LoginTaskFacade extends AsyncTask<LoginRequest, Void, LoginResponse
         UserTable userTable = new UserTable();
         User user = userTable.Query(loginRequests[0]);
         if (user != null) {
-            AuthTokenTable authTokenTable = new AuthTokenTable();
-            AuthToken authToken = authTokenTable.Create(loginRequests[0]);
-            response = new LoginResponse(user, authToken);
+            PasswordHasher passwordHasher = new PasswordHasher(loginRequests[0].getPassword());
+            if (passwordHasher.authenticate(user.getPassword())) {
+                AuthTokenTable authTokenTable = new AuthTokenTable();
+                AuthToken authToken = authTokenTable.Create(loginRequests[0]);
+                user.setPassword(null);
+                response = new LoginResponse(user, authToken);
+            }
+            else {
+                response = new LoginResponse("Incorrect Password");
+            }
+
         }
         else {
             response = new LoginResponse("User not Found");
