@@ -3,14 +3,17 @@ package com.example.roommatefinder.net;
 import android.os.StrictMode;
 
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.Location;
 import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
+import com.example.roommatefinder.model.service.request.CreateLocationRequest;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
+import com.example.roommatefinder.model.service.request.LocationRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
@@ -18,10 +21,12 @@ import com.example.roommatefinder.model.service.request.PreferenceRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
+import com.example.roommatefinder.model.service.response.CreateLocationResponse;
 import com.example.roommatefinder.model.service.response.CreatePostingResponse;
 import com.example.roommatefinder.model.service.response.CreatePreferenceResponse;
 import com.example.roommatefinder.model.service.response.DeleteUserResponse;
 import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
+import com.example.roommatefinder.model.service.response.LocationResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.model.service.response.PostingsResponse;
 import com.example.roommatefinder.model.service.response.PreferenceResponse;
@@ -374,4 +379,63 @@ public class SQLAccess {
 
             return new PreferenceResponse(null, false);
         }
+
+        public static CreateLocationResponse createLocation(CreateLocationRequest request) throws SQLException{
+            establishConnection();
+            if(conn != null){
+                Location location = request.getLocation();
+
+                //Delete any existing location a user might have. Users can only have one location at a time.
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Location] WHERE Email = ?");
+                preparedStatement.setString(1,location.getUsername());
+                preparedStatement.executeUpdate();
+
+                preparedStatement = conn.prepareStatement("INSERT INTO Location (Email, Country, State, City, StreetName, BuildingNumber, ApartmentNumber)" +
+                        "VALUES(?,?,?,?,?,?,?)");
+
+                preparedStatement.setString(1, location.getUsername());
+                preparedStatement.setString(2, location.getCountry());
+                preparedStatement.setString(3, location.getState());
+                preparedStatement.setString(4, location.getCity());
+                preparedStatement.setString(5, location.getStreetName());
+                preparedStatement.setInt(6, location.getBuildingNumber());
+                preparedStatement.setInt(7, location.getRoomNumber());
+                int result = preparedStatement.executeUpdate();
+
+                if(result != 0){
+                    return new CreateLocationResponse(true);
+                }
+                else{
+                    return new CreateLocationResponse(false);
+                }
+
+            }
+
+            return new CreateLocationResponse(false);
+        }
+
+        public static LocationResponse queryLocation(LocationRequest request) throws  SQLException{
+            establishConnection();
+            if(conn != null){
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Location WHERE Email = ?");
+                preparedStatement.setString(1, request.getUsername());
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next()){
+                    String email = resultSet.getString(1);
+                    String country = resultSet.getString(2);
+                    String state = resultSet.getString(3);
+                    String city = resultSet.getString(4);
+                    String streetName = resultSet.getString(5);
+                    Integer buildingNum = resultSet.getInt(6);
+                    Integer roomNum = resultSet.getInt(7);
+
+                    return new LocationResponse(new Location(email, country, state, city, streetName, buildingNum, roomNum));
+                }
+            }
+            return new LocationResponse("Failed to establish a connection for querying locations.");
+        }
+
+
 }
