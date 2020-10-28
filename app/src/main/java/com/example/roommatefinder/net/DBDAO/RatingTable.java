@@ -5,13 +5,22 @@ import com.example.roommatefinder.model.service.request.CreateRatingRequest;
 import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.response.CreateRatingResponse;
 import com.example.roommatefinder.model.service.response.RatingsResponse;
+import com.example.roommatefinder.net.SQLAccess;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RatingTable {
-    public Rating Create(CreateRatingRequest request) {
-        return new Rating(request.getRating().getRatingID(), request.getRating().getUsername(), 3, "comment");
+    public CreateRatingResponse Create(CreateRatingRequest request) {
+        try{
+            return SQLAccess.createRating(request);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return new CreateRatingResponse(e.getMessage());
+        }
+        //return new Rating(request.getRating().getRatingID(), request.getRating().getUsername(), 3, "comment");
     }
 
     public Boolean Update(CreateRatingRequest request) {
@@ -23,10 +32,16 @@ public class RatingTable {
         return true;
     }
 
-    public List<Rating> Query(RatingsRequest request) {
-        ArrayList<Rating> ratings = new ArrayList<>();
-        ratings.add(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
+    public RatingsResponse Query(RatingsRequest request) {
+        try{
+            return SQLAccess.queryRatings(request);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return new RatingsResponse(e.getMessage());
+        }
+        //ratings.add(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));
 
-        return ratings;
+
     }
 }

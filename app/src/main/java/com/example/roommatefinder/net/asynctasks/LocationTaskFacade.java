@@ -22,14 +22,13 @@ public class LocationTaskFacade extends AsyncTask<LocationRequest, Void, Locatio
     @Override
     protected LocationResponse doInBackground(LocationRequest... locationRequests) {
         LocationTable locationTable = new LocationTable();
-        LocationResponse response = null;
-        Location location = locationTable.Query(locationRequests[0]);
-        if (location != null) {
+        LocationResponse response = locationTable.Query(locationRequests[0]);
+        /*if (location != null) {
             response = new LocationResponse(location);
         }
         else {
             response = new LocationResponse("Location not Found");
-        }
+        }*/
 
         return response;
     }

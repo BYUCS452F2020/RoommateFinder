@@ -23,13 +23,13 @@ public class CreateLocationTaskFacade extends AsyncTask<CreateLocationRequest, V
         //create location
         LocationTable locationTable = new LocationTable();
         CreateLocationResponse response = null;
-        Location location = locationTable.Create(requests[0]);
-        if (location != null) {
+        response = locationTable.Create(requests[0]);
+        /*if (location != null) {
             response = new CreateLocationResponse(true);
         }
         else {
             response = new CreateLocationResponse(false);
-        }
+        }*/
         return response;
     }
 }

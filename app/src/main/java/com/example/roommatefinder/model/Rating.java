@@ -3,12 +3,14 @@ package com.example.roommatefinder.model;
 public class Rating {
     private String ratingID;
     private String username;
+    private String ratingGiver;
     private int score;
     private String comment;
 
-    public Rating(String ratingID, String username, int score, String comment) {
+    public Rating(String ratingID, String username, String ratingGiver, int score, String comment) {
         this.ratingID = ratingID;
         this.username = username;
+        this.ratingGiver = ratingGiver;
         this.score = score;
         this.comment = comment;
     }
@@ -43,5 +45,13 @@ public class Rating {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getRatingGiver() {
+        return ratingGiver;
+    }
+
+    public void setRatingGiver(String ratingGiver) {
+        this.ratingGiver = ratingGiver;
     }
 }

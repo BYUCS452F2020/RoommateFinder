@@ -23,15 +23,14 @@ public class CreateRatingTaskFacade extends AsyncTask<CreateRatingRequest, Void,
     protected CreateRatingResponse doInBackground(CreateRatingRequest ... requests) {
         //create rating
         RatingTable ratingTable = new RatingTable();
-        CreateRatingResponse response = null;
-        Rating rating = ratingTable.Create(requests[0]);
+        CreateRatingResponse response = ratingTable.Create(requests[0]);
 
-        if (rating != null){
+        /*if (rating != null){
             response = new CreateRatingResponse(rating);
         }
         else {
             response = new CreateRatingResponse("Failed to create Rating!");
-        }
+        }*/
 
         return response;
     }
