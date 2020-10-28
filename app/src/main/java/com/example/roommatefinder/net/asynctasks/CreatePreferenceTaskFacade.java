@@ -22,14 +22,8 @@ public class CreatePreferenceTaskFacade extends AsyncTask<CreatePreferenceReques
     protected CreatePreferenceResponse doInBackground(CreatePreferenceRequest... requests) {
         //create preference
         PreferenceTable preferenceTable = new PreferenceTable();
-        CreatePreferenceResponse response = null;
-        Preference preference = preferenceTable.Create(requests[0]);
-        if (preference != null) {
-            response = new CreatePreferenceResponse(true);
-        }
-        else {
-            response = new CreatePreferenceResponse(false);
-        }
+        CreatePreferenceResponse response = preferenceTable.Create(requests[0]);
+
         return response;
     }
 }
