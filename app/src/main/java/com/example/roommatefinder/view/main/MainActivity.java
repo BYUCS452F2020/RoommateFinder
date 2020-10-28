@@ -15,12 +15,15 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.roommatefinder.R;
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.view.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = "MainActivity";
 
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView firstName = findViewById(R.id.userName);
-        firstName.setText("Insert user name here");
+        firstName.setText(SessionCache.getInstance().getUser().getFirstName());
 
     }
 

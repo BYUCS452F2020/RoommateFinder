@@ -1,18 +1,18 @@
 package com.example.roommatefinder.model.service.request;
 
-public class PreferenceRequest {
+public class PreferenceRequest extends Request {
     //Used to query from Table
-    private String username;
+    private String email;
 
-    public PreferenceRequest(String username) {
-        this.username = username;
+    public PreferenceRequest(String email) {
+        this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

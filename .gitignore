@@ -15,4 +15,15 @@
 .cxx
 =======
 local.properties
+<<<<<<< HEAD
 >>>>>>> 536ee82ff705419daa86f3e91b217bc9bee8a249
+=======
+.gradle/6.1.1/executionHistory/executionHistory.bin
+.gradle/6.1.1/executionHistory/executionHistory.lock
+.gradle/6.1.1/fileHashes/fileHashes.bin
+.gradle/6.1.1/fileHashes/fileHashes.lock
+.gradle/6.1.1/javaCompile/classAnalysis.bin
+.gradle/6.1.1/javaCompile/javaCompile.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/*
+>>>>>>> e703f951cf381b2ce0caffeefd3bdaa1bc4bdde6

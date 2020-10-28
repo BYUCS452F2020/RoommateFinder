@@ -1,35 +1,68 @@
 package com.example.roommatefinder.net.DBDAO;
 
+import com.example.roommatefinder.Utils.RandomAuthTokenGenerator;
 import com.example.roommatefinder.model.AuthToken;
-import com.example.roommatefinder.model.User;
+import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
-import com.example.roommatefinder.model.service.response.LoginResponse;
+import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
+import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
+import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
+import com.example.roommatefinder.net.SQLAccess;
 
-public class AuthTokenTable implements DAOInterface<LoginRequest, LoginResponse, LogoutRequest, LogoutResponse> {
-    @Override
-    public LoginResponse Create(LoginRequest request) {
+import java.sql.SQLException;
+
+public class AuthTokenTable {
+    public AuthToken Create(LoginRequest request) {
         //create authToken
-        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333"), new AuthToken("Trump sucks"));
+        boolean success = false;
+        String generatedToken = null;
+        try {
+            generatedToken = new RandomAuthTokenGenerator().generateAuthToken();
+            success = SQLAccess.addEntryToAuthTokenTable(request, generatedToken);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (success) {
+            return new AuthToken(generatedToken);
+        }
+        else {
+            return null;
+        }
     }
 
-    @Override
-    public LoginResponse Update(LoginRequest request) {
+    public UpdateAuthTokenResponse Update(UpdateAuthTokenRequest request) {
         //Probably won't use this
-        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333"), new AuthToken("Trump sucks"));
+        String generatedToken = null;
+        UpdateAuthTokenResponse response = null;
+        try {
+            generatedToken = new RandomAuthTokenGenerator().generateAuthToken();
+            request.setNewAuthToken(generatedToken);
+            response = SQLAccess.updateAuthToken(request);
+            return response;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new UpdateAuthTokenResponse(false, e.getMessage());
+        }
     }
 
-    @Override
     public LogoutResponse Delete(LogoutRequest request) {
         //Use this when they Logout
-        return new LogoutResponse(true);
+        try {
+            return SQLAccess.deleteAuthToken(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new LogoutResponse(e.getMessage());
+        }
     }
 
-    @Override
-    public LogoutResponse Query(LogoutRequest request) {
-        return new LogoutResponse(true);
+    public GetAuthTokenResponse Query(GetAuthTokenRequest request) {
+        try {
+            return SQLAccess.queryAuthToken(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new GetAuthTokenResponse(e.getMessage());
+        }
     }
 }

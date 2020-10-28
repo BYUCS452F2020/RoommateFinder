@@ -1,7 +1,7 @@
 package com.example.roommatefinder.model;
 
 public class Location {
-    private String username;
+    private String email;
     private String country;
     private String state;
     private String city;
@@ -9,8 +9,8 @@ public class Location {
     private int buildingNumber;
     private int roomNumber;
 
-    public Location(String username, String country, String state, String city, String streetName, int buildingNumber, int roomNumber) {
-        this.username = username;
+    public Location(String email, String country, String state, String city, String streetName, int buildingNumber, int roomNumber) {
+        this.email = email;
         this.country = country;
         this.state = state;
         this.city = city;
@@ -20,11 +20,11 @@ public class Location {
     }
 
     public String getUsername() {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String email) {
+        this.email = email;
     }
 
     public String getCountry() {

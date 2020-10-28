@@ -2,7 +2,7 @@ package com.example.roommatefinder.model.service.request;
 
 import com.example.roommatefinder.model.Rating;
 
-public class CreateRatingRequest {
+public class CreateRatingRequest extends Request {
     private Rating rating;
 
     public CreateRatingRequest(Rating rating) {

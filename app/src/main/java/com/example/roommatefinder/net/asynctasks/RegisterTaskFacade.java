@@ -2,6 +2,8 @@ package com.example.roommatefinder.net.asynctasks;
 
 import android.os.AsyncTask;
 
+import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
@@ -19,16 +21,21 @@ public class RegisterTaskFacade extends AsyncTask<RegisterRequest, Void, Registe
     public RegisterTaskFacade(Observer observer) {
         this.observer = observer;
     }
+
     @Override
     protected RegisterResponse doInBackground(RegisterRequest... registerRequests) {
         //register user
         UserTable userTable = new UserTable();
-        RegisterResponse response = userTable.Create(registerRequests[0]);
-        if (response.isSuccess()) {
+        User user = userTable.Create(registerRequests[0]);
+        RegisterResponse response = null;
+        if (user != null) {
             //login user
             AuthTokenTable authTokenTable = new AuthTokenTable();
-            LoginResponse loginResponse = authTokenTable.Create(new LoginRequest(response.getUser().getEmail(), response.getUser().getPassword()));
-            response.setAuthToken(loginResponse.getAuthToken());
+            AuthToken authToken = authTokenTable.Create(new LoginRequest(user.getEmail(), user.getPassword()));
+            response = new RegisterResponse(user, authToken);
+        }
+        else {
+            response = new RegisterResponse("Not able to register, Email is already associated with an account");
         }
         return response;
     }

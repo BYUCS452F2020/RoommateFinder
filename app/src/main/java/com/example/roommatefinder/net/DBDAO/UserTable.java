@@ -1,35 +1,59 @@
 package com.example.roommatefinder.net.DBDAO;
 
+import android.annotation.SuppressLint;
+
+import com.example.roommatefinder.Utils.PasswordHasher;
 import com.example.roommatefinder.model.User;
+import com.example.roommatefinder.model.service.request.ChangeUserRequest;
+import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
-import com.example.roommatefinder.model.service.response.LoginResponse;
-import com.example.roommatefinder.model.service.response.RegisterResponse;
+import com.example.roommatefinder.model.service.response.ChangeUserResponse;
+import com.example.roommatefinder.model.service.response.DeleteUserResponse;
+import com.example.roommatefinder.net.SQLAccess;
 
-public class UserTable implements DAOInterface<RegisterRequest, RegisterResponse, LoginRequest, LoginResponse> {
+import java.sql.SQLException;
+
+public class UserTable {
     
-    @Override
-    public RegisterResponse Create(RegisterRequest request) {
-        return new RegisterResponse(new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge()
-        , request.getEmail(), request.getPassword(), request.getPhoneNumber()), null);
+    public User Create(RegisterRequest request) {
+        //Needs to check for AuthToken
+        try {
+            @SuppressLint({"NewApi", "LocalSuppress"}) String newPassword = new PasswordHasher(request.getPassword()).getHashPassword();
+            request.setPassword(newPassword);
+            return SQLAccess.addEntryToUserTable(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    @Override
-    public RegisterResponse Update(RegisterRequest request) {
-        return new RegisterResponse(new User(request.getFirstName(), request.getLastName(), request.getGender(), request.getAge(),
-                request.getEmail(), request.getPassword(), request.getPhoneNumber()), null);
+    public ChangeUserResponse Update(ChangeUserRequest request) {
+        //needs to check for authToken
+        try {
+            return SQLAccess.updateUser(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ChangeUserResponse(false, e.getMessage());
+        }
     }
 
-    @Override
-    public LoginResponse Delete(LoginRequest request) {
-        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333"), null);
+    public DeleteUserResponse Delete(DeleteUserRequest request) {
+        try {
+            return SQLAccess.deleteUser(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new DeleteUserResponse(false, e.getMessage());
+        }
     }
-
-    @Override
-    public LoginResponse Query(LoginRequest request) {
-        return new LoginResponse(new User("Test", "User", 'm', 25, "testuser@gmail.com",
-                "password", "111-222-3333"), null);
+    
+    public User Query(LoginRequest request) {
+        try {
+            return SQLAccess.queryUser(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

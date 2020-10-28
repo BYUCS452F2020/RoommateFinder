@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model.service.request;
 
-public class LoginRequest {
+public class LoginRequest extends Request {
 
     private String email;
     private String password;

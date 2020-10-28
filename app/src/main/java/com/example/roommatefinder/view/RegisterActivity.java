@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roommatefinder.R;
+import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.presenter.RegisterPresenter;
@@ -82,6 +83,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
         //intent.putExtra(MainActivity.AUTH_TOKEN_KEY, registerResponse.getAuthToken());
 
         registerToast.cancel();
+        SessionCache.getInstance().setUser(registerResponse.getUser());
+        SessionCache.getInstance().setAuthToken(registerResponse.getAuthToken());
         startActivity(intent);
     }
 
@@ -99,5 +102,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
     @Override
     public void onRegisterResult(RegisterResponse registerResponse) {
         //handle response
+        if (registerResponse.isSuccess()) {
+            registerSuccessful(registerResponse);
+        }
+        else {
+            registerUnsuccessful(registerResponse);
+        }
     }
 }

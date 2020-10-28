@@ -3,7 +3,7 @@ package com.example.roommatefinder.model.service.response;
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.User;
 
-public class RegisterResponse extends Response{
+public class RegisterResponse extends Response {
 
     private User user;
     private AuthToken authToken;

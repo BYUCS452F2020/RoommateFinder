@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model.service.request;
 
-public class LogoutRequest {
+public class LogoutRequest extends Request {
     private String token;
 
     public LogoutRequest(String token) {
