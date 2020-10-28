@@ -140,6 +140,15 @@ public class SQLAccess {
             return new LogoutResponse(false);
         }
 
+        public static void deleteAllAuthToken() throws SQLException {
+            establishConnection();
+            if (conn != null) {
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [AuthToken]");
+                int result = preparedStatement.executeUpdate();
+
+            }
+        }
+
         public static User addEntryToUserTable(RegisterRequest request) throws SQLException {
             establishConnection();
             if (conn != null) {
@@ -220,6 +229,23 @@ public class SQLAccess {
             }
             return new DeleteUserResponse(false);
         }
+
+    public static DeleteUserResponse deleteAllUsers() throws SQLException {
+        establishConnection();
+        if (conn != null) {
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [User]");
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return new DeleteUserResponse(true);
+            }
+            else {
+                return new DeleteUserResponse(false);
+            }
+        }
+        return new DeleteUserResponse(false);
+    }
+
+
 
 
 }

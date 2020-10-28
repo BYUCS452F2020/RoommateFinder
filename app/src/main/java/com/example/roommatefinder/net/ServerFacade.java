@@ -1,5 +1,6 @@
 package com.example.roommatefinder.net;
 
+import com.example.roommatefinder.Utils.TablePopulator;
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.User;
