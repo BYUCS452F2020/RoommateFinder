@@ -21,14 +21,7 @@ public class PostingsTaskFacade extends AsyncTask<PostingsRequest, Void, Posting
     @Override
     protected PostingsResponse doInBackground(PostingsRequest ... requests) {
         PostingTable postingTable = new PostingTable();
-        List<Posting> postings = postingTable.Query(requests[0]);
-        PostingsResponse response = null;
-        if (postings != null) {
-            response = new PostingsResponse(postings);
-        }
-        else {
-            response = new PostingsResponse("Failed to retrieve postings!");
-        }
+        PostingsResponse response = postingTable.Query(requests[0]);
 
         return response;
     }
