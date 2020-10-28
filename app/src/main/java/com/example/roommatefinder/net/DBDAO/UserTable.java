@@ -21,7 +21,7 @@ public class UserTable {
         try {
             @SuppressLint({"NewApi", "LocalSuppress"}) String newPassword = new PasswordHasher(request.getPassword()).getHashPassword();
             request.setPassword(newPassword);
-           return SQLAccess.addEntryToUserTable(request);
+            return SQLAccess.addEntryToUserTable(request);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
