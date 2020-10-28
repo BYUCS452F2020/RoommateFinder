@@ -22,16 +22,7 @@ public class CreatePostingTaskFacade extends AsyncTask<CreatePostingRequest, Voi
     protected CreatePostingResponse doInBackground(CreatePostingRequest... request) {
         //create posting
         PostingTable postingTable = new PostingTable();
-        CreatePostingResponse response = null;
-        Posting posting = postingTable.Create(request[0]);
-
-        if (posting != null) {
-            response = new CreatePostingResponse(posting);
-        }
-        else {
-            response = new CreatePostingResponse("Failed to create posting");
-        }
-
+        CreatePostingResponse response = postingTable.Create(request[0]);
         return response;
     }
 }

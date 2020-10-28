@@ -22,10 +22,9 @@ public class PreferenceTaskFacade extends AsyncTask<PreferenceRequest, Void, Pre
     @Override
     protected PreferenceResponse doInBackground(PreferenceRequest... requests) {
         PreferenceTable preferenceTable = new PreferenceTable();
-        Preference preference = preferenceTable.Query(requests[0]);
-        PreferenceResponse response = null;
-        if (preference != null) {
-            response = new PreferenceResponse(preference, true);
+        PreferenceResponse response = preferenceTable.Query(requests[0]);
+        if (response.getPreference() != null) {
+            response = new PreferenceResponse(response.getPreference(), true);
         }
         else {
             response = new PreferenceResponse(null, false);
