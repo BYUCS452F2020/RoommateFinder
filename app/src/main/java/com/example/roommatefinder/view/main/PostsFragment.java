@@ -114,13 +114,11 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
          */
         void bindPosting(Posting posting) {
 
-            postFullName.setText("Test");
-
             String email = posting.getEmail();
             String postID = posting.getPostID();
             String postContent = posting.getPostContent();
             int vacancyNumber = posting.getVacancyNumber();
-
+            postFullName.setText(email);
             this.postContent.setText(postContent);
         }
 

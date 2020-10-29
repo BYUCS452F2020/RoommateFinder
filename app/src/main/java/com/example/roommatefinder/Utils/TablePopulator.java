@@ -4,13 +4,20 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.roommatefinder.model.Location;
 import com.example.roommatefinder.model.Posting;
+import com.example.roommatefinder.model.Preference;
+import com.example.roommatefinder.model.Rating;
+import com.example.roommatefinder.model.service.request.CreateLocationRequest;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
+import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
+import com.example.roommatefinder.model.service.request.CreateRatingRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.net.SQLAccess;
 
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TablePopulator {
 
@@ -27,6 +34,127 @@ public class TablePopulator {
             SQLAccess.deleteAllUsers();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void populatePreferenceTable(int numOfMales, int numOfFemales) {
+        for (int i = 0; i < numOfMales; i++) {
+            String email = "Guy" + i + "@fakeemail.com";
+            Preference preference = new Preference(email, 12, new Random().nextInt(10), new Random().nextInt(10), ThreadLocalRandom.current().nextDouble(100.0, 2000.0),
+                    "m", "4 months");
+            CreatePreferenceRequest request = new CreatePreferenceRequest(preference);
+            try {
+                SQLAccess.createPreference(request);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        for (int i = 0; i < numOfFemales; i++) {
+            String email = "Girl" + i + "@fakeemail.com";
+            Preference preference = new Preference(email, 12, new Random().nextInt(10), new Random().nextInt(10), ThreadLocalRandom.current().nextDouble(100.0, 2000.0),
+                    "f", "7 months");
+            CreatePreferenceRequest request = new CreatePreferenceRequest(preference);
+            try {
+                SQLAccess.createPreference(request);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void populateLocationTable(int numOfMaleLocation, int numOfFemaleLocation) {
+        for (int i = 0; i < numOfMaleLocation; i++) {
+            String email = "Guy" + i + "@fakeemail.com";
+            String country = "USA";
+            String state = "Utah";
+            String city = "SLC";
+            String streetName = "street";
+            int buildingNumber = new Random().nextInt(2900);
+            int apartmentNumber = new Random().nextInt(300);
+            Location location = new Location(email, country, state, city, streetName, buildingNumber, apartmentNumber);
+            CreateLocationRequest request = new CreateLocationRequest(location);
+            try {
+                SQLAccess.createLocation(request);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        for (int i = 0; i < numOfFemaleLocation; i++) {
+            String email = "Girl" + i + "@fakeemail.com";
+            String country = "USA";
+            String state = "Utah";
+            String city = "SLC";
+            String streetName = "street";
+            int buildingNumber = new Random().nextInt(2900);
+            int apartmentNumber = new Random().nextInt(300);
+            Location location = new Location(email, country, state, city, streetName, buildingNumber, apartmentNumber);
+            CreateLocationRequest request = new CreateLocationRequest(location);
+            try {
+                SQLAccess.createLocation(request);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void populateRatingTable(int numOfMaleRaters, int numOfFemaleRaters) {
+        int counter = 0;
+        for (int i = 0; i < numOfMaleRaters; i++) {
+            String email = "Guy" + (i + 1) + "@fakeemail.com";
+            String ratingGiver = "Guy" + i + "@fakeemail.com";
+            int score = 0;
+            while (score == 0) {
+                score = new Random().nextInt(5);
+            }
+            String comment;
+            if (score == 4 || score == 5) {
+                comment = "This guy is awesome";
+            }
+            else if (score == 2 || score == 3) {
+                comment = "Not the most friendly guy";
+            }
+            else {
+                comment = "Wouldn't recommend";
+            }
+            try {
+                String ratingID = new RandomPostIDGenerator().getRandomPostID();
+                Rating rating = new Rating(ratingID, email, ratingGiver, score, comment);
+                SQLAccess.createRating(new CreateRatingRequest(rating));
+                System.out.println("Created Rating" + ratingID);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                counter++;
+                System.out.println("error");
+            }
+        }
+
+        for (int i = 0; i < numOfFemaleRaters; i++) {
+            String email = "Girl" + (i + 1) + "@fakeemail.com";
+            String ratingGiver = "Girl" + i + "@fakeemail.com";
+            int score = 0;
+            while (score == 0) {
+                score = new Random().nextInt(5);
+            }
+            String comment;
+            if (score == 4 || score == 5) {
+                comment = "This lady is awesome";
+            }
+            else if (score == 2 || score == 3) {
+                comment = "Not the most friendly lady";
+            }
+            else {
+                comment = "Wouldn't recommend";
+            }
+            try {
+                String ratingID = new RandomPostIDGenerator().getRandomPostID();
+                Rating rating = new Rating(ratingID, email, ratingGiver, score, comment);
+                SQLAccess.createRating(new CreateRatingRequest(rating));
+                System.out.println("Created Rating" + ratingID);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                counter++;
+                System.out.println("error");
+            }
         }
     }
 
