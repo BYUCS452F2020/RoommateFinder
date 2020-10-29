@@ -311,10 +311,43 @@ public class SQLAccess {
                     postings.add(new Posting(responseUser, country, state, city, streetName, buildingNumber, apartmentNumber));
                 }
 
-                return new PostingsResponse(postings);
+                ArrayList<Posting> pagedPostings = new ArrayList<>();
+                boolean hasMorePages = false;
+
+                if (request.getLimit() > 0) {
+                    if (pagedPostings != null) {
+                        int postingsIndex = getPostingsStartingIndex(request.getLastPosting(), postings);
+
+                        for(int limitCounter = 0; postingsIndex < postings.size() && limitCounter < request.getLimit(); postingsIndex++, limitCounter++) {
+                            pagedPostings.add(postings.get(postingsIndex));
+                        }
+
+                        hasMorePages = postingsIndex < postings.size();
+                    }
+                }
+
+                return new PostingsResponse(pagedPostings, hasMorePages);
             }
 
             return new PostingsResponse("Failed to establish a connection for querying postings.");
+        }
+
+        private static int getPostingsStartingIndex(Posting lastPosting, List<Posting> allPostings){
+            int index = 0;
+
+            if (lastPosting != null) {
+                // This is a paged request for something after the first page. Find the first item
+                // we should return
+                for (int i = 0; i < allPostings.size(); i++) {
+                    if (lastPosting.equals(allPostings.get(i))) {
+                        // We found the index of the last item returned last time. Increment to get
+                        // to the first one we should return
+                        index = i + 1;
+                    }
+                }
+            }
+
+            return index;
         }
 
         public static CreatePreferenceResponse createPreference(CreatePreferenceRequest request) throws SQLException {

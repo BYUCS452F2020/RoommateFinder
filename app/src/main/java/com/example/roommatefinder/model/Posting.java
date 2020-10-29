@@ -1,6 +1,6 @@
 package com.example.roommatefinder.model;
 
-public class Posting {
+public class Posting implements Comparable<Posting> {
     private User user;
     private String country;
     private String state;
@@ -73,6 +73,11 @@ public class Posting {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    @Override
+    public int compareTo(Posting posting) {
+        return this.getUser().getEmail().compareTo(posting.getUser().getEmail());
     }
 }
 

@@ -19,7 +19,7 @@ import com.example.roommatefinder.model.User;
  */
 class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int POST_FRAGMENT_POSITION = 0;
+    private static final int POSTS_FRAGMENT_POSITION = 0;
     private static final int MY_POST_POSITION = 1;
 
     @StringRes
@@ -37,6 +37,10 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
+        if (position == POSTS_FRAGMENT_POSITION) {
+            return PostsFragment.newInstance();
+        }
 
         return PlaceholderFragment.newInstance(position + 1);
     }

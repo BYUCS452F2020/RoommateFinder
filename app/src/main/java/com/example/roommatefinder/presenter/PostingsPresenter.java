@@ -17,7 +17,7 @@ public class PostingsPresenter implements PostingsTaskFacade.Observer {
     }
 
     public interface View {
-        void onPostingsResult(PostingsResponse response);
+        public void onPostingsResult(PostingsResponse response);
     }
 
     public PostingsPresenter(View view) {
