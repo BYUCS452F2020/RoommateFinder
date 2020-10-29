@@ -5,15 +5,13 @@ public class ChangeUserRequest {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private String password;
     private int age;
 
-    public ChangeUserRequest(String email, String firstName, String lastName, String phoneNumber, String password, int age) {
+    public ChangeUserRequest(String email, String firstName, String lastName, String phoneNumber, int age) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.password = password;
         this.age = age;
     }
 
@@ -47,14 +45,6 @@ public class ChangeUserRequest {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getAge() {

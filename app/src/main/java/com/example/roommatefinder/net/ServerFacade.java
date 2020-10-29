@@ -20,6 +20,7 @@ import com.example.roommatefinder.model.service.request.PreferenceRequest;
 import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
+import com.example.roommatefinder.net.asynctasks.ChangeUserInfoTaskFacade;
 import com.example.roommatefinder.net.asynctasks.CreateLocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.CreatePostingTaskFacade;
 import com.example.roommatefinder.net.asynctasks.CreatePreferenceTaskFacade;
@@ -48,6 +49,11 @@ public class ServerFacade {
     public void register(RegisterRequest request, RegisterTaskFacade.Observer observer){
         RegisterTaskFacade registerTask = new RegisterTaskFacade(observer);
         registerTask.execute(request);
+    }
+
+    public void changeUserInfo(ChangeUserRequest request, ChangeUserInfoTaskFacade.Observer observer) {
+        ChangeUserInfoTaskFacade changeUserInfoTask = new ChangeUserInfoTaskFacade(observer);
+        changeUserInfoTask.execute(request);
     }
 
     public void getPreference(PreferenceRequest request, PreferenceTaskFacade.Observer observer) {

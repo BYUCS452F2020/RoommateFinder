@@ -16,6 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageButton
+                android:id="@+id/profile_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_profile"></ImageButton>
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
@@ -33,6 +39,7 @@
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:layout_gravity="center"
                 android:layout_marginLeft="225dp">
+
             </TextView>
         </LinearLayout>
 

@@ -218,13 +218,12 @@ public class SQLAccess {
         public static ChangeUserResponse updateUser(ChangeUserRequest request) throws SQLException {
             establishConnection();
             if (conn != null) {
-                PreparedStatement preparedStatement = conn.prepareStatement("UPDATE [User] SET Password = ?, Phonenumber = ?, FirstName = ?, LastName = ?, Age = ? WHERE Email = ?");
-                preparedStatement.setString(1, request.getPassword());
-                preparedStatement.setString(2, request.getPhoneNumber());
-                preparedStatement.setString(3, request.getFirstName());
-                preparedStatement.setString(4, request.getLastName());
-                preparedStatement.setInt(5, request.getAge());
-                preparedStatement.setString(6, request.getEmail());
+                PreparedStatement preparedStatement = conn.prepareStatement("UPDATE [User] SET Phonenumber = ?, FirstName = ?, LastName = ?, Age = ? WHERE Email = ?");
+                preparedStatement.setString(1, request.getPhoneNumber());
+                preparedStatement.setString(2, request.getFirstName());
+                preparedStatement.setString(3, request.getLastName());
+                preparedStatement.setInt(4, request.getAge());
+                preparedStatement.setString(5, request.getEmail());
                 int result = preparedStatement.executeUpdate();
                 if (result != 0) {
                     return new ChangeUserResponse(true);
