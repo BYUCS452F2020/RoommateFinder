@@ -18,6 +18,10 @@ public class PostingsTaskFacade extends AsyncTask<PostingsRequest, Void, Posting
         public void onPostingsResponseReceived(PostingsResponse response);
     }
 
+    public PostingsTaskFacade(Observer observer) {
+        this.observer = observer;
+    }
+
     @Override
     protected PostingsResponse doInBackground(PostingsRequest ... requests) {
         PostingTable postingTable = new PostingTable();

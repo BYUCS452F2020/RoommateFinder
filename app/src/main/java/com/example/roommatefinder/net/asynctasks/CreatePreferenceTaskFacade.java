@@ -26,4 +26,9 @@ public class CreatePreferenceTaskFacade extends AsyncTask<CreatePreferenceReques
 
         return response;
     }
+
+    @Override
+    protected void onPostExecute(CreatePreferenceResponse createPreferenceResponse) {
+        observer.onCreatePreferenceResponseReceived(createPreferenceResponse);
+    }
 }

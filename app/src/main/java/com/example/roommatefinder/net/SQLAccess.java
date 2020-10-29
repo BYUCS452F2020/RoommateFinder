@@ -263,21 +263,18 @@ public class SQLAccess {
                 Posting posting = request.getPosting();
 
                 //Delete any existing posing a user might have. Users can only have one postings at a time.
-                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Posting] WHERE Email = ?");
-                preparedStatement.setString(1, posting.getUser().getEmail());
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Posts] WHERE Email = ?");
+                preparedStatement.setString(1, posting.getEmail());
                 preparedStatement.executeUpdate();
 
                 //Insert the new posting into the Posting Table.
-                preparedStatement = conn.prepareStatement("INSERT INTO [Posting] (Email, Country, State, City, StreetName, BuildingNumber, ApartmentNumber)" +
-                        "VALUES(?,?,?,?,?,?,?)");
+                preparedStatement = conn.prepareStatement("INSERT INTO [Posts] (PostID, Email, postContent, vacancyNumber)" +
+                        "VALUES(?,?,?,?)");
 
-                preparedStatement.setString(1, posting.getUser().getEmail());
-                preparedStatement.setString(2, posting.getCountry());
-                preparedStatement.setString(3, posting.getState());
-                preparedStatement.setString(4, posting.getCity());
-                preparedStatement.setString(5, posting.getStreet());
-                preparedStatement.setInt(6, posting.getBuildNum());
-                preparedStatement.setInt(7, posting.getRoomNum());
+                preparedStatement.setString(1, posting.getPostID());
+                preparedStatement.setString(2, posting.getEmail());
+                preparedStatement.setString(3, posting.getPostContent());
+                preparedStatement.setInt(4, posting.getVacancyNumber());
                 int result = preparedStatement.executeUpdate();
                 if (result != 0) {
                     return new CreatePostingResponse(posting);
@@ -294,21 +291,18 @@ public class SQLAccess {
             establishConnection();
             if (conn != null) {
                 User responseUser;
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Posting]");
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Posts]");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 ArrayList<Posting> postings = new ArrayList<>();
                 while (resultSet.next()) {
-                    String email = resultSet.getString(1);
-                    String country = resultSet.getString(2);
-                    String state = resultSet.getString(3);
-                    String city = resultSet.getString(4);
-                    String streetName = resultSet.getString(5);
-                    Integer buildingNumber = resultSet.getInt(6);
-                    Integer apartmentNumber = resultSet.getInt(7);
+                    String postID = resultSet.getString(1);
+                    String email = resultSet.getString(2);
+                    String postContent = resultSet.getString(3);
+                    int vacancyNumber = resultSet.getInt(4);
 
                     responseUser = new User(null,null, null, 0, email, null, null);
 
-                    postings.add(new Posting(responseUser, country, state, city, streetName, buildingNumber, apartmentNumber));
+                    postings.add(new Posting(postID, email, postContent, vacancyNumber));
                 }
 
                 return new PostingsResponse(postings);

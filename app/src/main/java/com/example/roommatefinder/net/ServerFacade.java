@@ -2,26 +2,32 @@ package com.example.roommatefinder.net;
 
 import com.example.roommatefinder.Utils.TablePopulator;
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.Location;
+import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.Preference;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
 import com.example.roommatefinder.model.service.request.CreateLocationRequest;
+import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
 import com.example.roommatefinder.model.service.request.LocationRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
+import com.example.roommatefinder.model.service.request.PostingsRequest;
 import com.example.roommatefinder.model.service.request.PreferenceRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.net.asynctasks.CreateLocationTaskFacade;
+import com.example.roommatefinder.net.asynctasks.CreatePostingTaskFacade;
 import com.example.roommatefinder.net.asynctasks.CreatePreferenceTaskFacade;
 import com.example.roommatefinder.net.asynctasks.DeleteAuthTokenTaskFacade;
 import com.example.roommatefinder.net.asynctasks.DeleteUserTaskFacade;
 import com.example.roommatefinder.net.asynctasks.GetAuthTokenTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LoginTaskFacade;
+import com.example.roommatefinder.net.asynctasks.PostingsTaskFacade;
 import com.example.roommatefinder.net.asynctasks.PreferenceTaskFacade;
 import com.example.roommatefinder.net.asynctasks.RegisterTaskFacade;
 import com.example.roommatefinder.net.asynctasks.UpdateAuthTokenTaskFacade;
@@ -30,6 +36,9 @@ import com.example.roommatefinder.net.asynctasks.UpdateUserTaskFacade;
 public class ServerFacade {
 
     public void login(LoginRequest request, LoginTaskFacade.Observer observer) {
+        Location location = new Location("testuser@gmail.com", "USA", "UT", "Provo", "Main", 123, 234);
+        User user = new User("Test", "User", 'm', 27, "testuser@email.com", "password", "1234");
+        Posting posting = new Posting("postID", user.getEmail(), "This house is awesome - changed", 1);
         LoginTaskFacade loginTask = new LoginTaskFacade(observer);
         loginTask.execute(request);
     }
@@ -91,6 +100,16 @@ public class ServerFacade {
         //note this will either return a list<AuthTokens> or a single authToken
         GetAuthTokenTaskFacade getAuthTokenTask = new GetAuthTokenTaskFacade(observer);
         getAuthTokenTask.execute(request);
+    }
+
+    public void createPosting(CreatePostingRequest request, CreatePostingTaskFacade.Observer observer) {
+        CreatePostingTaskFacade createPostingTask = new CreatePostingTaskFacade(observer);
+        createPostingTask.execute(request);
+    }
+
+    public void getPostings(PostingsRequest request, PostingsTaskFacade.Observer observer) {
+        PostingsTaskFacade postingsTask = new PostingsTaskFacade(observer);
+        postingsTask.execute(request);
     }
 
     

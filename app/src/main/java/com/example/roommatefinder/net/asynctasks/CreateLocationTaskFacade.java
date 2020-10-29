@@ -32,4 +32,10 @@ public class CreateLocationTaskFacade extends AsyncTask<CreateLocationRequest, V
         }
         return response;
     }
+
+    @Override
+    protected void onPostExecute(CreateLocationResponse createLocationResponse) {
+        super.onPostExecute(createLocationResponse);
+        observer.onCreateLocationResponseReceived(createLocationResponse);
+    }
 }

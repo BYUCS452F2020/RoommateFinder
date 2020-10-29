@@ -1,78 +1,48 @@
 package com.example.roommatefinder.model;
 
 public class Posting {
-    private User user;
-    private String country;
-    private String state;
-    private String city;
-    private String street;
-    private int buildNum;
-    private int roomNum;
+    private String postID;
+    private String email;
+    private String postContent;
+    private int vacancyNumber;
 
-    public Posting(User user, String country, String state, String city, String street, int buildNum, int roomNum){
-        this.user = user;
-        this.country = country;
-        this.state = state;
-        this.city = city;
-        this.street = street;
-        this.buildNum = buildNum;
-        this.roomNum = roomNum;
+    public Posting(String postID, String email, String postContent, int vacancyNumber){
+        this.postID = postID;
+        this.email = email;
+        this.postContent = postContent;
+        this.vacancyNumber = vacancyNumber;
     }
 
-    public User getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public String getCity() {
-        return city;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getBuildNum() {
-        return buildNum;
+    public String getPostID() {
+        return postID;
     }
 
-    public int getRoomNum() {
-        return roomNum;
+    public void setPostID(String postID) {
+        this.postID = postID;
     }
 
-    public String getCountry() {
-        return country;
+    public String getPostContent() {
+        return postContent;
     }
 
-    public String getState() {
-        return state;
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
     }
 
-    public String getStreet() {
-        return street;
+    public int getVacancyNumber() {
+        return vacancyNumber;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setBuildNum(int buildNum) {
-        this.buildNum = buildNum;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setRoomNum(int roomNum) {
-        this.roomNum = roomNum;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
+    public void setVacancyNumber(int vacancyNumber) {
+        this.vacancyNumber = vacancyNumber;
     }
 }
 

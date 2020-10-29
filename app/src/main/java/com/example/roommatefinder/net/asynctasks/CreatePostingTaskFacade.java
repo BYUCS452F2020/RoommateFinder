@@ -25,4 +25,10 @@ public class CreatePostingTaskFacade extends AsyncTask<CreatePostingRequest, Voi
         CreatePostingResponse response = postingTable.Create(request[0]);
         return response;
     }
+
+    @Override
+    protected void onPostExecute(CreatePostingResponse createPostingResponse) {
+        super.onPostExecute(createPostingResponse);
+        observer.onCreatePostingResponseReceived(createPostingResponse);
+    }
 }

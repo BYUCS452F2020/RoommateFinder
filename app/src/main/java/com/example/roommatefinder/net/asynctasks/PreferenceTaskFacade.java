@@ -35,7 +35,6 @@ public class PreferenceTaskFacade extends AsyncTask<PreferenceRequest, Void, Pre
     @Override
     protected void onPostExecute(PreferenceResponse preferenceResponse){
         super.onPostExecute(preferenceResponse);
-
         observer.onPreferenceResponseReceived(preferenceResponse);
     }
 }
