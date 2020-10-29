@@ -26,15 +26,8 @@ public class RatingsTaskFacade extends AsyncTask<RatingsRequest, Void, RatingsRe
     protected RatingsResponse doInBackground(RatingsRequest ... requests) {
         RatingTable ratingTable = new RatingTable();
         //TODO: Make sure that this eventually returns all ratings relating to a user when requested.
-        List<Rating> ratings = ratingTable.Query(requests[0]);
-        RatingsResponse response = null;
-        if (ratings != null) {
-            response = new RatingsResponse(ratings);
-        }
-        else {
-            response = new RatingsResponse("No list of ratings was returned.");
-        }
-        
+        RatingsResponse response = ratingTable.Query(requests[0]);
+
         return response;
     }
 
