@@ -477,7 +477,7 @@ public class SQLAccess {
                     "VALUES (?,?,?,?,?);");
 
             preparedStatement.setString(1, rating.getRatingID());
-            preparedStatement.setString(2, rating.getUsername());
+            preparedStatement.setString(2, rating.getEmail());
             preparedStatement.setString(3, rating.getRatingGiver());
             preparedStatement.setInt(4, rating.getScore());
             preparedStatement.setString(5, rating.getComment());
@@ -498,7 +498,7 @@ public class SQLAccess {
         establishConnection();
         if(conn != null){
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Rating] WHERE Email = ?");
-            preparedStatement.setString(1, request.getUsername());
+            preparedStatement.setString(1, request.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Rating> ratingList = new ArrayList<>();

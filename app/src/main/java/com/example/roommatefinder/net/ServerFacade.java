@@ -17,6 +17,7 @@ import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
 import com.example.roommatefinder.model.service.request.PreferenceRequest;
+import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.net.asynctasks.CreateLocationTaskFacade;
@@ -29,6 +30,7 @@ import com.example.roommatefinder.net.asynctasks.LocationTaskFacade;
 import com.example.roommatefinder.net.asynctasks.LoginTaskFacade;
 import com.example.roommatefinder.net.asynctasks.PostingsTaskFacade;
 import com.example.roommatefinder.net.asynctasks.PreferenceTaskFacade;
+import com.example.roommatefinder.net.asynctasks.RatingsTaskFacade;
 import com.example.roommatefinder.net.asynctasks.RegisterTaskFacade;
 import com.example.roommatefinder.net.asynctasks.UpdateAuthTokenTaskFacade;
 import com.example.roommatefinder.net.asynctasks.UpdateUserTaskFacade;
@@ -111,6 +113,12 @@ public class ServerFacade {
         PostingsTaskFacade postingsTask = new PostingsTaskFacade(observer);
         postingsTask.execute(request);
     }
+
+    public void queryRatings(RatingsRequest request, RatingsTaskFacade.Observer observer) {
+        RatingsTaskFacade ratingsTask = new RatingsTaskFacade(observer);
+        ratingsTask.execute(request);
+    }
+
 
     
 }

@@ -114,16 +114,14 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
          */
         void bindPosting(Posting posting) {
 
-            postFullName.setText(posting.getUser().getFirstName() + " " + posting.getUser().getLastName());
+            postFullName.setText("Test");
 
-            String country = posting.getCountry();
-            String city = posting.getCity();
-            String street = posting.getStreet();
-            String state = posting.getState();
-            Integer buildNum = posting.getBuildNum();
-            Integer roomNum = posting.getRoomNum();
+            String email = posting.getEmail();
+            String postID = posting.getPostID();
+            String postContent = posting.getPostContent();
+            int vacancyNumber = posting.getVacancyNumber();
 
-            postContent.setText("" + buildNum + street + ", " + city + " " + state);
+            this.postContent.setText(postContent);
         }
 
 
@@ -252,7 +250,7 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
             isLoading = true;
             addLoadingFooter();
 
-            PostingsTaskFacade postingsTaskFacade = new PostingsTaskFacade();
+            PostingsTaskFacade postingsTaskFacade = new PostingsTaskFacade(this);
             PostingsRequest request = new PostingsRequest(10, lastPosting);
             postingsTaskFacade.execute(request);
         }
@@ -293,7 +291,7 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
          */
         private void addLoadingFooter() {
 
-            addItem(new Posting(null,"","", "", "", 0, 0));
+            addItem(new Posting(null,null,"",2));
         }
 
         /**
