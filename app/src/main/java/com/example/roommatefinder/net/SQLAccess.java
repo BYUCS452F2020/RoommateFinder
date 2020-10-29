@@ -3,28 +3,38 @@ package com.example.roommatefinder.net;
 import android.os.StrictMode;
 
 import com.example.roommatefinder.model.AuthToken;
+import com.example.roommatefinder.model.Location;
 import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.Preference;
+import com.example.roommatefinder.model.Rating;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.ChangeUserRequest;
+import com.example.roommatefinder.model.service.request.CreateLocationRequest;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.CreatePreferenceRequest;
+import com.example.roommatefinder.model.service.request.CreateRatingRequest;
 import com.example.roommatefinder.model.service.request.DeleteUserRequest;
 import com.example.roommatefinder.model.service.request.GetAuthTokenRequest;
+import com.example.roommatefinder.model.service.request.LocationRequest;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.request.LogoutRequest;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
 import com.example.roommatefinder.model.service.request.PreferenceRequest;
+import com.example.roommatefinder.model.service.request.RatingsRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.request.UpdateAuthTokenRequest;
 import com.example.roommatefinder.model.service.response.ChangeUserResponse;
+import com.example.roommatefinder.model.service.response.CreateLocationResponse;
 import com.example.roommatefinder.model.service.response.CreatePostingResponse;
 import com.example.roommatefinder.model.service.response.CreatePreferenceResponse;
+import com.example.roommatefinder.model.service.response.CreateRatingResponse;
 import com.example.roommatefinder.model.service.response.DeleteUserResponse;
 import com.example.roommatefinder.model.service.response.GetAuthTokenResponse;
+import com.example.roommatefinder.model.service.response.LocationResponse;
 import com.example.roommatefinder.model.service.response.LogoutResponse;
 import com.example.roommatefinder.model.service.response.PostingsResponse;
 import com.example.roommatefinder.model.service.response.PreferenceResponse;
+import com.example.roommatefinder.model.service.response.RatingsResponse;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.model.service.response.UpdateAuthTokenResponse;
 
@@ -374,4 +384,113 @@ public class SQLAccess {
 
             return new PreferenceResponse(null, false);
         }
+
+    public static CreateLocationResponse createLocation(CreateLocationRequest request) throws SQLException{
+        establishConnection();
+        if(conn != null){
+            Location location = request.getLocation();
+
+            //Delete any existing location a user might have. Users can only have one location at a time.
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Location] WHERE Email = ?");
+            preparedStatement.setString(1,location.getUsername());
+            preparedStatement.executeUpdate();
+
+            preparedStatement = conn.prepareStatement("INSERT INTO [Location] (Email, Country, State, City, StreetName, BuildingNumber, ApartmentNumber)" +
+                    "VALUES(?,?,?,?,?,?,?)");
+
+            preparedStatement.setString(1, location.getUsername());
+            preparedStatement.setString(2, location.getCountry());
+            preparedStatement.setString(3, location.getState());
+            preparedStatement.setString(4, location.getCity());
+            preparedStatement.setString(5, location.getStreetName());
+            preparedStatement.setInt(6, location.getBuildingNumber());
+            preparedStatement.setInt(7, location.getRoomNumber());
+            int result = preparedStatement.executeUpdate();
+
+            if(result != 0){
+                return new CreateLocationResponse(true);
+            }
+            else{
+                return new CreateLocationResponse(false);
+            }
+
+        }
+
+        return new CreateLocationResponse(false);
+    }
+
+    public static LocationResponse queryLocation(LocationRequest request) throws  SQLException{
+        establishConnection();
+        if(conn != null){
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Location] WHERE Email = ?");
+            preparedStatement.setString(1, request.getUsername());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                String email = resultSet.getString(1);
+                String country = resultSet.getString(2);
+                String state = resultSet.getString(3);
+                String city = resultSet.getString(4);
+                String streetName = resultSet.getString(5);
+                Integer buildingNum = resultSet.getInt(6);
+                Integer roomNum = resultSet.getInt(7);
+
+                return new LocationResponse(new Location(email, country, state, city, streetName, buildingNum, roomNum));
+            }
+        }
+        return new LocationResponse("Failed to establish a connection for querying locations.");
+    }
+
+    public static CreateRatingResponse createRating(CreateRatingRequest request) throws SQLException{
+        establishConnection();
+        if(conn != null){
+            Rating rating = request.getRating();
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO [Rating] (RatingID, Email, RatingGiver, Score, Comment)" +
+                    "VALUES (?,?,?,?,?);");
+
+            preparedStatement.setString(1, rating.getRatingID());
+            preparedStatement.setString(2, rating.getUsername());
+            preparedStatement.setString(3, rating.getRatingGiver());
+            preparedStatement.setInt(4, rating.getScore());
+            preparedStatement.setString(5, rating.getComment());
+            int result = preparedStatement.executeUpdate();
+
+            if(result != 0){
+                return new CreateRatingResponse(rating);
+            }
+            else{
+                return new CreateRatingResponse("Failed to insert a rating");
+            }
+        }
+
+        return new CreateRatingResponse("Failed to establish a connection for creating a rating");
+    }
+
+    public static RatingsResponse queryRatings(RatingsRequest request) throws SQLException{
+        establishConnection();
+        if(conn != null){
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM [Rating] WHERE Email = ?");
+            preparedStatement.setString(1, request.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Rating> ratingList = new ArrayList<>();
+            Rating tempRating;
+
+            while(resultSet.next()){
+                String ratingID = resultSet.getString(1);
+                String email = resultSet.getString(2);
+                String ratingGiver = resultSet.getString(3);
+                Integer score = resultSet.getInt(4);
+                String comment = resultSet.getString(5);
+
+                tempRating = new Rating(ratingID, email, ratingGiver, score, comment);
+                ratingList.add(tempRating);
+            }
+
+            return new RatingsResponse(ratingList);
+        }
+        return new RatingsResponse("Failed to establish connection for querying a rating");
+    }
+    
 }
