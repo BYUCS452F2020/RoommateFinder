@@ -1,11 +1,22 @@
 package com.example.roommatefinder.model.service.request;
 
+import com.example.roommatefinder.model.Posting;
+
 public class PostingsRequest {
 
-    //Right now I can't think of any fields that we would need to get the postings
+    private final int limit;
+    private final Posting lastPosting;
 
-    public PostingsRequest() {
-
+    public PostingsRequest(int limit, Posting lastPosting) {
+        this.limit = limit;
+        this.lastPosting = lastPosting;
     }
 
+    public int getLimit() {
+        return limit;
+    }
+
+    public Posting getLastPosting() {
+        return lastPosting;
+    }
 }
