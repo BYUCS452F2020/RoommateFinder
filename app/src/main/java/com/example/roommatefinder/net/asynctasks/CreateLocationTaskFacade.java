@@ -22,14 +22,8 @@ public class CreateLocationTaskFacade extends AsyncTask<CreateLocationRequest, V
     protected CreateLocationResponse doInBackground(CreateLocationRequest... requests) {
         //create location
         LocationTable locationTable = new LocationTable();
-        CreateLocationResponse response = null;
-        Location location = locationTable.Create(requests[0]);
-        if (location != null) {
-            response = new CreateLocationResponse(true);
-        }
-        else {
-            response = new CreateLocationResponse(false);
-        }
+        CreateLocationResponse response = locationTable.Create(requests[0]);
+
         return response;
     }
 }
