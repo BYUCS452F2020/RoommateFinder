@@ -14,9 +14,8 @@ public class PreferenceTable {
             return SQLAccess.createPreference(request);
         } catch (SQLException e) {
             e.printStackTrace();
+            return new CreatePreferenceResponse(false, e.getMessage());
         }
-
-        return null;
     }
 
     public CreatePreferenceResponse Update(CreatePreferenceRequest request) {
@@ -34,8 +33,8 @@ public class PreferenceTable {
             return SQLAccess.queryPreference(request);
         } catch (SQLException e) {
             e.printStackTrace();
+            return new PreferenceResponse(false, e.getMessage());
         }
 
-        return null;
     }
 }

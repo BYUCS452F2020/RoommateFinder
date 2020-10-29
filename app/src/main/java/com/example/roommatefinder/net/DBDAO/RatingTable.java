@@ -18,7 +18,7 @@ public class RatingTable {
         }
         catch (SQLException e){
             e.printStackTrace();
-            return new CreateRatingResponse("Failed to create rating");
+            return new CreateRatingResponse("Failed to create rating: " + e.getMessage());
         }
 
         //return new Rating(request.getRating().getRatingID(), request.getRating().getUsername(), 3, "comment");
@@ -39,7 +39,7 @@ public class RatingTable {
         }
         catch (SQLException e){
             e.printStackTrace();
-            return new RatingsResponse("Failed to return list of ratings");
+            return new RatingsResponse("Failed to return list of ratings: " + e.getMessage());
         }
         /*ArrayList<Rating> ratings = new ArrayList<>();
         ratings.add(new Rating(request.getRatingID(), request.getUsername(), 3, "comment"));

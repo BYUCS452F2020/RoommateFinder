@@ -16,7 +16,7 @@ public class LocationTable {
         }
         catch (SQLException e){
             e.printStackTrace();
-            return new CreateLocationResponse(false);
+            return new CreateLocationResponse(false, e.getMessage());
         }
         //return new Location("email", "USA", "UT", "Provo", "Land", 123, 12);
     }
@@ -36,9 +36,7 @@ public class LocationTable {
         }
         catch (SQLException e){
             e.printStackTrace();
-            return new LocationResponse("Failed to return location");
+            return new LocationResponse("Failed to return location: " + e.getMessage());
         }
-
-        //return new Location("email", "USA", "UT", "Provo", "Land", 123, 12);
     }
 }

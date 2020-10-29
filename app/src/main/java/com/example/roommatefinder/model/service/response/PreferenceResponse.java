@@ -10,6 +10,10 @@ public class PreferenceResponse extends Response {
         this.preference = preference;
     }
 
+    public PreferenceResponse(boolean success, String message) {
+        super(success, message);
+    }
+
     public Preference getPreference() {
         return preference;
     }

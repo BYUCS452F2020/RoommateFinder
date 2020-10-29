@@ -16,9 +16,8 @@ public class PostingTable {
             return SQLAccess.insertPostingIntoPostingTable(request);
         } catch (SQLException e) {
             e.printStackTrace();
+            return new CreatePostingResponse(e.getMessage());
         }
-
-        return null;
     }
 
     public CreatePostingResponse Update(CreatePostingRequest request) {
@@ -27,9 +26,9 @@ public class PostingTable {
             return SQLAccess.insertPostingIntoPostingTable(request);
         } catch (SQLException e) {
             e.printStackTrace();
+            return new CreatePostingResponse(e.getMessage());
         }
 
-        return null;
     }
 
 //    public Boolean Delete(Posting posting) {
@@ -43,8 +42,7 @@ public class PostingTable {
              return SQLAccess.queryAllPostings(request);
          } catch (SQLException e) {
              e.printStackTrace();
+             return new PostingsResponse(e.getMessage());
          }
-
-         return null;
     }
 }
