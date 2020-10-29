@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.roommatefinder.model.Posting;
+import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.net.SQLAccess;
 
@@ -26,6 +28,52 @@ public class TablePopulator {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void populatePostingsTable(int numOfMalePostings, int numOfFemalePostings) {
+        int counter = 0;
+        for (int i = 0; i < numOfMalePostings; i++) {
+            String email = "Guy" + i + "@fakeemail.com";
+            int vacancy = 0;
+            while (vacancy == 0) {
+                vacancy = new Random().nextInt(6);
+            }
+            String postContent = "Looking for " + vacancy + " to fill this beautiful home";
+            Posting posting = new Posting(new RandomPostIDGenerator().getRandomPostID(), email,  postContent, vacancy);
+            CreatePostingRequest request = new CreatePostingRequest(posting);
+            try {
+                SQLAccess.insertPostingIntoPostingTable(request);
+                counter++;
+                System.out.println("Counter is " + counter);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                counter++;
+                System.out.println("Counter is " + counter);
+            }
+        }
+
+        for (int i = 0; i < numOfFemalePostings; i++) {
+            String email = "Girl" + i + "@fakeemail.com";
+            int vacancy = 0;
+            while (vacancy == 0) {
+                vacancy = new Random().nextInt(6);
+            }
+            String postContent = "Looking for " + vacancy + " to fill this beautiful home";
+            Posting posting = new Posting(new RandomPostIDGenerator().getRandomPostID(), email,  postContent, vacancy);
+            CreatePostingRequest request = new CreatePostingRequest(posting);
+            try {
+                SQLAccess.insertPostingIntoPostingTable(request);
+                counter++;
+                System.out.println("Counter is " + counter);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                counter++;
+                System.out.println("Counter is " + counter);
+            }
+        }
+
+
+
     }
     public void populateUserTable(int numOfMaleUsers, int numOfFemaleUsers) {
         int counter = 0;
