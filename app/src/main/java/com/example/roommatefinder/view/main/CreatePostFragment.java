@@ -15,6 +15,12 @@ import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.response.CreatePostingResponse;
 import com.example.roommatefinder.presenter.CreatePostingPresenter;
 
+import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Random;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CreatePostFragment#newInstance} factory method to
@@ -27,10 +33,11 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
     private static final String ARG_USER_EMAIL = "UserEmail";
 
     private String userEmail;
-
     private EditText postContent;
     private EditText vacancy;
     private Button submitButton;
+
+    private CreatePostingPresenter presenter;
 
     public CreatePostFragment() {
         // Required empty public constructor
@@ -50,6 +57,8 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
         if (getArguments() != null) {
             userEmail = getArguments().getString(ARG_USER_EMAIL);
         }
+
+        presenter = new CreatePostingPresenter(this);
     }
 
     @Override
@@ -72,6 +81,13 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
                     Integer vacancyNum = Integer.parseInt(postContent.getText().toString());
 
                     CreatePostingRequest request = new CreatePostingRequest(new Posting("-", userEmail, content, vacancyNum));
+
+                    try {
+                        presenter.createPosting(request);
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     failureToast = Toast.makeText(getActivity(), "Please fill all of the fields before submitting.", Toast.LENGTH_LONG );
