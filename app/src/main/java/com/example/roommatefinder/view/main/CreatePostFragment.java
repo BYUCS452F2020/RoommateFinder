@@ -80,7 +80,9 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
                     String content = postContent.getText().toString();
                     Integer vacancyNum = Integer.parseInt(postContent.getText().toString());
 
-                    CreatePostingRequest request = new CreatePostingRequest(new Posting("-", userEmail, content, vacancyNum));
+                    String randomString = RandomString.getAlphaNumericString(10);
+
+                    CreatePostingRequest request = new CreatePostingRequest(new Posting(randomString, userEmail, content, vacancyNum));
 
                     try {
                         presenter.createPosting(request);
@@ -118,6 +120,37 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
         else {
             Toast failureToast = Toast.makeText(getActivity(), "Please fill all of the fields before submitting.", Toast.LENGTH_LONG );
             failureToast.show();
+        }
+    }
+
+    private class RandomString {
+
+        // function to generate a random string of length n
+        static String getAlphaNumericString(int n)
+        {
+
+            // chose a Character random from this String
+            String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    + "0123456789"
+                    + "abcdefghijklmnopqrstuvxyz";
+
+            // create StringBuffer size of AlphaNumericString
+            StringBuilder sb = new StringBuilder(n);
+
+            for (int i = 0; i < n; i++) {
+
+                // generate a random number between
+                // 0 to AlphaNumericString variable length
+                int index
+                        = (int)(AlphaNumericString.length()
+                        * Math.random());
+
+                // add Character one by one in end of sb
+                sb.append(AlphaNumericString
+                        .charAt(index));
+            }
+
+            return sb.toString();
         }
     }
 }
