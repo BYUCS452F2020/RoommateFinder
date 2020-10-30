@@ -13,7 +13,7 @@
     <string name="userImageContentDescription">The user\'s image</string>
     <string name="filterPosts">Filter</string>
     <string name="postFeed">Feed</string>
-    <string name="userPosts">My Posts</string>
+    <string name="userPosts">Submit A Post</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_register">Register</string>
@@ -24,4 +24,6 @@
     <string name="last_name_prompt">Last Name</string>
     <string name="phone_number_prompt">Phone Number</string>
     <string name="age_prompt">Age</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

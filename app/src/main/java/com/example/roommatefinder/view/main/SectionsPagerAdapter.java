@@ -12,7 +12,6 @@ import com.example.roommatefinder.R;
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.User;
 
-
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to one of the sections/tabs/pages
  * of the Main Activity.
@@ -40,6 +39,9 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         if (position == POSTS_FRAGMENT_POSITION) {
             return PostsFragment.newInstance();
+        }
+        else if (position == MY_POST_POSITION) {
+            return CreatePostFragment.newInstance(user.getEmail());
         }
 
         return PlaceholderFragment.newInstance(position + 1);
