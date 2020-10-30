@@ -387,6 +387,23 @@ public class SQLAccess {
             return new CreatePreferenceResponse(false);
         }
 
+        public static Boolean deletePreference(PreferenceRequest request) throws SQLException{
+            establishConnection();
+            if(conn != null){
+                String username = request.getEmail();
+
+                //Delete any existing preference a user might have. Users can only have one preference at a time.
+                //Note: a preference is an object that stores multiple preferences in real life.
+                PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Preference] WHERE Email = ?");
+                preparedStatement.setString(1, username);
+                preparedStatement.executeUpdate();
+
+                return true;
+            }
+
+            return false;
+        }
+
         public static PreferenceResponse queryPreference(PreferenceRequest request) throws SQLException{
             establishConnection();
             if (conn != null) {
@@ -468,6 +485,21 @@ public class SQLAccess {
         return new LocationResponse("Failed to establish a connection for querying locations.");
     }
 
+    public static Boolean deleteLocation(LocationRequest request) throws SQLException{
+        establishConnection();
+        if(conn != null){
+            String username = request.getUsername();
+
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Location] WHERE Email = ?");
+            preparedStatement.setString(1,username);
+            preparedStatement.executeUpdate();
+
+            return true;
+        }
+
+        return false;
+    }
+    
     public static CreateRatingResponse createRating(CreateRatingRequest request) throws SQLException{
         establishConnection();
         if(conn != null){
@@ -518,5 +550,23 @@ public class SQLAccess {
         }
         return new RatingsResponse("Failed to establish connection for querying a rating");
     }
+
+    public static Boolean deleteRating(RatingsRequest request) throws SQLException{
+        //Deletes only 1 rating based on the ratingID
+        establishConnection();
+        if(conn != null){
+            String ratingID = request.getRatingID();
+
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM [Rating] WHERE RatingID = ?");
+            preparedStatement.setString(1, ratingID);
+            preparedStatement.executeUpdate();
+
+            return true;
+        }
+
+        return false;
+    }
+
+
     
 }

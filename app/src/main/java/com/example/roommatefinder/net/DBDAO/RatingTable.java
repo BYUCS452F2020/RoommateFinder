@@ -30,7 +30,13 @@ public class RatingTable {
 
     public Boolean Delete(RatingsRequest request) {
         //probably won't need
-        return true;
+        try{
+            return SQLAccess.deleteRating(request);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public RatingsResponse Query(RatingsRequest request) {

@@ -21,13 +21,24 @@ public class LocationTable {
         //return new Location("email", "USA", "UT", "Provo", "Land", 123, 12);
     }
 
-    public Boolean Update(CreateLocationRequest request) {
-        //might not have to use this
-        return true;
+    public CreateLocationResponse Update(CreateLocationRequest request) {
+        try{
+            return SQLAccess.createLocation(request);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return new CreateLocationResponse(false, e.getMessage());
+        }
     }
 
     public Boolean Delete(LocationRequest request) {
-        return  true;
+        try{
+            return SQLAccess.deleteLocation(request);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public LocationResponse Query(LocationRequest request) {

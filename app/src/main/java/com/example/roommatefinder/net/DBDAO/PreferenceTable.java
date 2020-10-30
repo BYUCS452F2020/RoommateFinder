@@ -28,6 +28,16 @@ public class PreferenceTable {
         return null;
     }
 
+    public Boolean Delete(PreferenceRequest request){
+        try{
+            return SQLAccess.deletePreference(request);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public PreferenceResponse Query(PreferenceRequest request) {
         try {
             return SQLAccess.queryPreference(request);
