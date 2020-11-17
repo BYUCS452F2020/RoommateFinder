@@ -20,6 +20,7 @@ import com.example.roommatefinder.R;
 import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.User;
+import com.example.roommatefinder.view.ChoosePreferenceActivity;
 import com.example.roommatefinder.view.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String CURRENT_USER_KEY = "CurrentUser";
     public static final String AUTH_TOKEN_KEY = "AuthTokenKey";
     private ImageView profilePic;
+    private ImageView preferencesPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        User user = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
+        preferencesPic = findViewById(R.id.preferences_pic);
+        preferencesPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(MainActivity.this, ChoosePreferenceActivity.class);
+                    intent.putExtra("mode", 1);
+                    startActivity(intent);
+                }finally {
+                    finish();
+                }
+            }
+        });
+        //User user = (User) getIntent().getSerializableExtra(CURRENT_USER_KEY);
+        User user = SessionCache.getInstance().getUser();
         //if(user == null) {
            //throw new RuntimeException("User not passed to activity");
         //}
 
-        AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
+        //AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
+        AuthToken authToken = SessionCache.getInstance().getAuthToken();
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), user, authToken);
         ViewPager viewPager = findViewById(R.id.view_pager);

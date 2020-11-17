@@ -34,6 +34,7 @@ import com.example.roommatefinder.net.asynctasks.PreferenceTaskFacade;
 import com.example.roommatefinder.net.asynctasks.RatingsTaskFacade;
 import com.example.roommatefinder.net.asynctasks.RegisterTaskFacade;
 import com.example.roommatefinder.net.asynctasks.UpdateAuthTokenTaskFacade;
+import com.example.roommatefinder.net.asynctasks.UpdatePreferenceTaskFacade;
 import com.example.roommatefinder.net.asynctasks.UpdateUserTaskFacade;
 
 public class ServerFacade {
@@ -64,6 +65,11 @@ public class ServerFacade {
     public void addPreference(CreatePreferenceRequest request, CreatePreferenceTaskFacade.Observer observer) {
         CreatePreferenceTaskFacade createPreferenceTask = new CreatePreferenceTaskFacade(observer);
         createPreferenceTask.execute(request);
+    }
+
+    public void updatePreference(CreatePreferenceRequest request, UpdatePreferenceTaskFacade.Observer observer) {
+        UpdatePreferenceTaskFacade taskFacade = new UpdatePreferenceTaskFacade(observer);
+        taskFacade.execute(request);
     }
 
     public void getLocation(LocationRequest request, LocationTaskFacade.Observer observer) {

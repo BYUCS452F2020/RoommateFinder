@@ -4,68 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
-
-    <TextView
-        android:id="@+id/phoneNumberPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/phone_number_prompt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
-
-    <TextView
-        android:id="@+id/agePrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/age_prompt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551" />
+    tools:context=".view.ChoosePreferenceActivity">
 
     <EditText
-        android:id="@+id/lastNameSettings"
+        android:id="@+id/timeToSleepChoose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/timeToSleepHint"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/timeToSleepHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.727" />
+
+    <EditText
+        android:id="@+id/socialLevelChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/socialLevelHint"
+        android:inputType="textPersonName"
+        android:text="@string/socialLevelHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.326" />
 
     <EditText
-        android:id="@+id/ageSettings"
+        android:id="@+id/cleanlinessChoose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/cleanlinessHint"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/cleanlinessHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.588" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <EditText
-        android:id="@+id/firstNameSettings"
+        android:id="@+id/priceChoose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="@string/priceHint"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/priceHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.388"
@@ -73,8 +67,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.155" />
 
+    <EditText
+        android:id="@+id/typeChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/typehint"
+        android:inputType="textPersonName"
+        android:text="@string/typehint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.422" />
+
+
+    <EditText
+        android:id="@+id/contractChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/contractHint"
+        android:inputType="textPersonName"
+        android:text="@string/contractHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.842" />
+
     <TextView
-        android:id="@+id/profilePrompt"
+        android:id="@+id/choosePreferencePrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="129dp"
@@ -83,68 +110,26 @@
         android:layout_marginEnd="225dp"
         android:layout_marginRight="225dp"
         android:layout_marginBottom="682dp"
-        android:text="@string/profile_prompt"
+        android:text="@string/choosePreferencesPrompt"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintHorizontal_bias="0.262"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/phoneNumberSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginRight="121dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.453" />
+        app:layout_constraintVertical_bias="0.076" />
 
     <Button
-        android:id="@+id/saveChanges"
+        android:id="@+id/buttonChoose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_changes"
-        android:background="@color/babyblue"
+        android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.956" />
 
-    <TextView
-        android:id="@+id/firstNamePrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/first_name_prompt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
-
-    <TextView
-        android:id="@+id/lastNamePrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/last_name_prompt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.264" />
 </androidx.constraintlayout.widget.ConstraintLayout>

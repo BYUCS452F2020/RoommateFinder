@@ -24,4 +24,12 @@
     <string name="last_name_prompt">Last Name</string>
     <string name="phone_number_prompt">Phone Number</string>
     <string name="age_prompt">Age</string>
+
+    <string name="choosePreferencesPrompt">My Preferences</string>
+    <string name="timeToSleepHint">21</string>
+    <string name="socialLevelHint">3</string>
+    <string name="cleanlinessHint">5</string>
+    <string name="priceHint">350</string>
+    <string name="typehint">M</string>
+    <string name="contractHint">Ends Feb</string>
 </resources>
