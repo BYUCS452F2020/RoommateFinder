@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16sp"
     tools:context=".view.main.CreatePostFragment">
@@ -22,8 +22,8 @@
         android:layout_weight="1"
         android:ems="10"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="Housing Description" />
+        android:hint="Housing Description"
+        android:inputType="textMultiLine" />
 
     <EditText
         android:id="@+id/vacancy_count"
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        android:inputType="number"
-        android:text="Openings Available" />
+        android:hint="Openings Available"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/submit_post_button"

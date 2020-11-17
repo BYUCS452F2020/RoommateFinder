@@ -77,11 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
 
     @Override
     public void registerSuccessful(RegisterResponse registerResponse) {
-        Intent intent = new Intent(this, MainActivity.class);
-
-        //intent.putExtra(MainActivity.CURRENT_USER_KEY, registerResponse.getUser());
-        //intent.putExtra(MainActivity.AUTH_TOKEN_KEY, registerResponse.getAuthToken());
-
+        Intent intent = new Intent(this, ChoosePreferenceActivity.class);
         registerToast.cancel();
         SessionCache.getInstance().setUser(registerResponse.getUser());
         SessionCache.getInstance().setAuthToken(registerResponse.getAuthToken());

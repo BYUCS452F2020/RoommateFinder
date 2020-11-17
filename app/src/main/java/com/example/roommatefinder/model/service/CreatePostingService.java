@@ -9,7 +9,7 @@ import java.io.IOException;
 public class CreatePostingService {
     public void createPosting(CreatePostingRequest request, CreatePostingTaskFacade.Observer observer) throws IOException {
         //TODO: implement and call function that creates a posting in serviceFacade.
-        //getServerFacade().post(request, observer);
+        getServerFacade().createPosting(request, observer);
     }
 
     private ServerFacade getServerFacade() {

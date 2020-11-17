@@ -2,6 +2,9 @@ package com.example.roommatefinder.view.main;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import com.example.roommatefinder.model.Posting;
 import com.example.roommatefinder.model.service.request.CreatePostingRequest;
 import com.example.roommatefinder.model.service.response.CreatePostingResponse;
 import com.example.roommatefinder.presenter.CreatePostingPresenter;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -70,30 +75,26 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
         postContent = (EditText) view.findViewById(R.id.post_content);
         vacancy = (EditText) view.findViewById(R.id.vacancy_count);
         submitButton = (Button) view.findViewById(R.id.submit_post_button);
-
+        submitButton.setEnabled(false);
+        postContent.addTextChangedListener(textWatcher);
+        vacancy.addTextChangedListener(textWatcher);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Toast failureToast;
-                if (postFieldsFilled()){
+            Toast failureToast;
 
-                    String content = postContent.getText().toString();
-                    Integer vacancyNum = Integer.parseInt(postContent.getText().toString());
+                String content = postContent.getText().toString();
+                Integer vacancyNum = Integer.parseInt(vacancy.getText().toString());
 
-                    String randomString = RandomString.getAlphaNumericString(10);
+                String randomString = RandomString.getAlphaNumericString(10);
 
-                    CreatePostingRequest request = new CreatePostingRequest(new Posting(randomString, userEmail, content, vacancyNum));
+                CreatePostingRequest request = new CreatePostingRequest(new Posting(randomString, userEmail, content, vacancyNum));
 
-                    try {
-                        presenter.createPosting(request);
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    presenter.createPosting(request);
                 }
-                else {
-                    failureToast = Toast.makeText(getActivity(), "Please fill all of the fields before submitting.", Toast.LENGTH_LONG );
-                    failureToast.show();
+                catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -101,20 +102,51 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
         return view;
     }
 
-    private Boolean postFieldsFilled() {
-        if (!postContent.getText().toString().equals("")) {
-            return false;
-        }
-        if (!vacancy.getText().toString().equals("")) {
-            return false;
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
         }
 
-        return true;
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if (isValidPostContent() && isValidVacancy()) {
+                submitButton.setEnabled(true);
+            }
+            else {
+                submitButton.setEnabled(false);
+            }
+        }
+    };
+
+    private Boolean isValidPostContent() {
+        return postContent.getText().toString().length() > 0 && postContent.getText().toString().length() <= 500;
     }
+
+    private Boolean isValidVacancy() {
+        return StringUtils.isNumericSpace(vacancy.getText().toString());
+    }
+
+//    private Boolean postFieldsFilled() {
+//        if (!postContent.getText().toString().equals("")) {
+//            return false;
+//        }
+//        if (!vacancy.getText().toString().equals("")) {
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
     @Override
     public void onCreatePostingResult(CreatePostingResponse response) {
         if (response.isSuccess()) {
+            Toast.makeText(getActivity(), "Post Created " + response.getPosting().getPostID(), Toast.LENGTH_LONG).show();
             //Not sure what we want to do here. Do we need to add the post to the postsRecylcerView;
         }
         else {
@@ -123,7 +155,7 @@ public class CreatePostFragment extends Fragment implements CreatePostingPresent
         }
     }
 
-    private class RandomString {
+    private static class RandomString {
 
         // function to generate a random string of length n
         static String getAlphaNumericString(int n)
