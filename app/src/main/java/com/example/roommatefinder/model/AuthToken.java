@@ -1,8 +1,9 @@
 package com.example.roommatefinder.model;
 
+import java.io.Serializable;
 import java.sql.Time;
 
-public class AuthToken {
+public class AuthToken implements Serializable {
     private String authToken;
     private String email;
     private Time timeCreated;

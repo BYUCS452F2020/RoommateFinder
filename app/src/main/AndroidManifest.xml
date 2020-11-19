@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ChoosePreferenceActivity"></activity>
+        <activity android:name=".view.ExpandedPostActivity"></activity>
+        <activity android:name=".view.ChoosePreferenceActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".view.LoginActivity"

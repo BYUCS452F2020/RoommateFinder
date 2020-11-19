@@ -1,6 +1,8 @@
 package com.example.roommatefinder.model;
 
-public class Posting {
+import java.io.Serializable;
+
+public class Posting implements Serializable {
     private String postID;
     private String email;
     private String postContent;

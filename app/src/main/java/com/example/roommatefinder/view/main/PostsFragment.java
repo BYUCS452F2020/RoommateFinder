@@ -1,5 +1,6 @@
 package com.example.roommatefinder.view.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.roommatefinder.R;
 
+import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.Posting;
+import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.model.service.request.PostingsRequest;
 import com.example.roommatefinder.model.service.response.PostingsResponse;
 import com.example.roommatefinder.net.asynctasks.PostingsTaskFacade;
 import com.example.roommatefinder.presenter.PostingsPresenter;
+import com.example.roommatefinder.view.ExpandedPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PostsFragment extends Fragment implements PostingsPresenter.View {
 
     private static final String LOG_TAG = "PostsFragment";
+    private static final String CURRENT_USER_KEY = "UserKey";
+    private static final String SELECTED_POST_KEY = "SelectedPostKey";
+    private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
+
+    private User user;
+    private AuthToken authToken;
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
@@ -44,14 +54,14 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
      * Creates an instance of the fragment.
      *
      */
-    public static PostsFragment newInstance() {
+    public static PostsFragment newInstance(User user, AuthToken authToken) {
         PostsFragment fragment = new PostsFragment();
 
-//        Bundle args = new Bundle(2);
-//        args.putSerializable(USER_KEY, user);
-//        args.putSerializable(AUTH_TOKEN_KEY, authToken);
+        Bundle args = new Bundle(2);
+        args.putSerializable(CURRENT_USER_KEY, user);
+        args.putSerializable(AUTH_TOKEN_KEY, authToken);
 
-        //fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -61,8 +71,8 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
         View view = inflater.inflate(R.layout.fragment_posts, container, false);
 
         //noinspection ConstantConditions
-//        user = (User) getArguments().getSerializable(USER_KEY);
-//        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
+        user = (User) getArguments().getSerializable(CURRENT_USER_KEY);
+        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
         presenter = new PostingsPresenter(this);
 
@@ -86,6 +96,7 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
 
         private final TextView postFullName;
         private final TextView postContent;
+        private Posting boundedPosting;
 
         /**
          * Creates an instance and sets an OnClickListener for the tweet's row.
@@ -98,11 +109,19 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
 
             postFullName = itemView.findViewById(R.id.post_full_name);
             postContent = itemView.findViewById(R.id.post_content);
+            //this.postings = postings;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(getContext(), "You selected '" + userName.getText() + "'.", Toast.LENGTH_SHORT).show();
+
+                    //Open the ExpandedPostActivity for the selected post
+                    Intent intent = new Intent(getActivity(), ExpandedPostActivity.class);
+
+                    //intent.putExtra(SELECTED_USER_KEY, user);
+                    intent.putExtra(SELECTED_POST_KEY, boundedPosting);
+
+                    startActivity(intent);
                 }
             });
         }
@@ -120,6 +139,7 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
             int vacancyNumber = posting.getVacancyNumber();
             postFullName.setText(email);
             this.postContent.setText(postContent);
+            boundedPosting = posting;
         }
 
 
@@ -149,12 +169,12 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
          * Adds new tweets to the list from which the RecyclerView retrieves the tweets it displays
          * and notifies the RecyclerView that items have been added.
          *
-         * @param newTweets the tweets to add.
+         * @param newPostings the tweets to add.
          */
-        void addItems(List<Posting> newTweets) {
+        void addItems(List<Posting> newPostings) {
             int startInsertPosition = postings.size();
-            postings.addAll(newTweets);
-            this.notifyItemRangeInserted(startInsertPosition, newTweets.size());
+            postings.addAll(newPostings);
+            this.notifyItemRangeInserted(startInsertPosition, newPostings.size());
         }
 
         /**
@@ -249,7 +269,7 @@ public class PostsFragment extends Fragment implements PostingsPresenter.View {
             addLoadingFooter();
 
             PostingsTaskFacade postingsTaskFacade = new PostingsTaskFacade(this);
-            PostingsRequest request = new PostingsRequest(10, lastPosting);
+            PostingsRequest request = new PostingsRequest(PAGE_SIZE, lastPosting);
             postingsTaskFacade.execute(request);
         }
 

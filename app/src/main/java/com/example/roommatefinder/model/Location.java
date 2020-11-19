@@ -1,6 +1,8 @@
 package com.example.roommatefinder.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private String email;
     private String country;
     private String state;

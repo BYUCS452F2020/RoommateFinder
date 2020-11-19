@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/expanded_post_username"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ExpandedPostActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="28dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expanded_post_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post Content"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/expanded_post_vacancy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vaccancy:"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expanded_post_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location:"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expanded_post_location_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preference Content"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/expanded_post_preferences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preferences:"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expanded_post_preferences_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preference Content"
+            android:textSize="24dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
