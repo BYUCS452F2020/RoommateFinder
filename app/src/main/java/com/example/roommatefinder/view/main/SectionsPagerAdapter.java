@@ -38,7 +38,7 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         if (position == POSTS_FRAGMENT_POSITION) {
-            return PostsFragment.newInstance();
+            return PostsFragment.newInstance(user, authToken);
         }
         else if (position == MY_POST_POSITION) {
             return CreatePostFragment.newInstance(user.getEmail());

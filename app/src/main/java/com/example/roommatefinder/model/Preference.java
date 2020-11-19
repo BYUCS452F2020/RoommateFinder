@@ -1,6 +1,8 @@
 package com.example.roommatefinder.model;
 
-public class Preference {
+import java.io.Serializable;
+
+public class Preference implements Serializable {
     private String email;
     private int preferredTimeToSleep; //stored as military time but displayed in 12 hr time
     private int socialLevel; //From a scale of 1-10

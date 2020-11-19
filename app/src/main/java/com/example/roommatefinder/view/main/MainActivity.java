@@ -21,7 +21,6 @@ import com.example.roommatefinder.model.AuthToken;
 import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.User;
 import com.example.roommatefinder.view.ChoosePreferenceActivity;
-import com.example.roommatefinder.view.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 

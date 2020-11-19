@@ -1,8 +1,10 @@
 package com.example.roommatefinder.model;
 
+import java.io.Serializable;
+
 import androidx.annotation.Nullable;
 
-public class User {
+public class User implements Serializable {
     private String firstName;
     private String lastName;
     private Character gender;
