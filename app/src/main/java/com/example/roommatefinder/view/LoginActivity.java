@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +19,11 @@ import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.service.request.LoginRequest;
 import com.example.roommatefinder.model.service.response.LoginResponse;
 import com.example.roommatefinder.presenter.LoginPresenter;
-import com.example.roommatefinder.view.asynctask.LoginTask;
 import com.example.roommatefinder.view.main.MainActivity;
 
 import java.io.IOException;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, LoginTask.Observer {
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.View{
 
     private static final String LOG_TAG = "LoginActivity";
 
@@ -77,7 +75,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     }
 
 
-    @Override
     public void loginSuccessful(LoginResponse loginResponse) {
         Intent intent = new Intent(this, MainActivity.class);
 
@@ -91,17 +88,16 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     }
 
 
-    @Override
     public void loginUnsuccessful(LoginResponse loginResponse) {
         Toast.makeText(this, "Failed to login. " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
     }
 
 
-    @Override
-    public void handleException(Exception exception) {
-        Log.e(LOG_TAG, exception.getMessage(), exception);
-        Toast.makeText(this, "Failed to login because of exception: " + exception.getMessage(), Toast.LENGTH_LONG).show();
-    }
+//    @Override
+//    public void handleException(Exception exception) {
+//        Log.e(LOG_TAG, exception.getMessage(), exception);
+//        Toast.makeText(this, "Failed to login because of exception: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+//    }
 
     @Override
     public void onLoginResult(LoginResponse response) {

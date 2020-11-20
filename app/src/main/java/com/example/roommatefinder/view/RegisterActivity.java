@@ -17,12 +17,11 @@ import com.example.roommatefinder.model.SessionCache;
 import com.example.roommatefinder.model.service.request.RegisterRequest;
 import com.example.roommatefinder.model.service.response.RegisterResponse;
 import com.example.roommatefinder.presenter.RegisterPresenter;
-import com.example.roommatefinder.view.asynctask.RegisterTask;
 import com.example.roommatefinder.view.main.MainActivity;
 
 import java.io.IOException;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterPresenter.View, RegisterTask.Observer {
+public class RegisterActivity extends AppCompatActivity implements RegisterPresenter.View {
 
     private static final String LOG_TAG = "RegisterActivity";
 
@@ -75,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
         });
     }
 
-    @Override
     public void registerSuccessful(RegisterResponse registerResponse) {
         Intent intent = new Intent(this, ChoosePreferenceActivity.class);
         registerToast.cancel();
@@ -84,12 +82,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
         startActivity(intent);
     }
 
-    @Override
     public void registerUnsuccessful(RegisterResponse registerResponse) {
         Toast.makeText(this, "Failed to register " + registerResponse.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    @Override
     public void handleException(Exception ex) {
         Log.e(LOG_TAG, ex.getMessage(), ex);
         Toast.makeText(this, "Failed to login because of exception: " + ex.getMessage(), Toast.LENGTH_LONG).show();
