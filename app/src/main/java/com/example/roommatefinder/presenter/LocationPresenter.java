@@ -25,7 +25,7 @@ public class LocationPresenter implements LocationTaskFacade.Observer {
     }
 
     public void getLocation(LocationRequest request) throws IOException {
-        LocationService locationService = getLocationService();
+       getLocationService().getLocation(request, this);
     }
 
     public LocationService getLocationService() {

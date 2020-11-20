@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 
 import com.example.roommatefinder.R;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
         presenter = new LoginPresenter(this);
 
-        Button loginButton = findViewById(R.id.LoginButton);
+        AppCompatButton loginButton = findViewById(R.id.LoginButton);
         TextView registerLink = findViewById(R.id.link_register);
         loginButton.setOnClickListener(new View.OnClickListener() {
 

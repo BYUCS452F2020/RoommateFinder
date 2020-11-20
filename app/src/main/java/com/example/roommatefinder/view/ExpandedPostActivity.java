@@ -45,7 +45,7 @@ public class ExpandedPostActivity extends AppCompatActivity implements LocationP
         //user = (User) getIntent().getSerializableExtra(SELECTED_USER_KEY);
         posting = (Posting) getIntent().getSerializableExtra(SELECTED_POST_KEY);
 
-        userName = (TextView) findViewById(R.id.expanded_post_username);
+        userName = (TextView) findViewById(R.id.userNameTextView);
         userName.setText(posting.getEmail());
         //NOTE: I'm using the email of the post in place of the name of the user who made the post.
 
