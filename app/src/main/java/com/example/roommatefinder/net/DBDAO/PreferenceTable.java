@@ -1,5 +1,6 @@
 package com.example.roommatefinder.net.DBDAO;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
@@ -22,7 +23,8 @@ import com.google.gson.Gson;
 
 public class PreferenceTable {
 
-    private AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-east-2").build();
+   // private AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-east-2").build();
+    private AmazonDynamoDB client = AmazonDynamoDBClient.builder().withRegion("us-east-2").build();
     private DynamoDB dynamoDB = new DynamoDB(client);
     private Table preferenceTable = dynamoDB.getTable("RoommateFinderPreference");
 
